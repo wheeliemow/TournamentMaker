@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System;
 namespace TournamentReport.Models {
     public class Team {
         private bool _standingsCalculated = false;
@@ -9,7 +10,13 @@ namespace TournamentReport.Models {
         public int Wins { get; private set; }
         public int Losses { get; private set; }
         public int Ties { get; private set; }
+
+        public int GoalsScored { get; private set; }
+        public int GoalsAgainst { get; private set; }
+
         public string Group { get; set; }
+        public Tournament Tournament { get; set; }
+
         public int GamesPlayed {
             get {
                 return Games.Count(g => g.HomeTeamScore != null && g.InGame(this));
@@ -27,29 +34,37 @@ namespace TournamentReport.Models {
                 Wins = 0;
                 Losses = 0;
                 Ties = 0;
-                foreach (var game in Games) {
-                    // This is home team
-                    if (game.HomeTeam.Id == this.Id) {
-                        if (game.HomeTeamScore > game.AwayTeamScore) {
-                            Wins++;
-                        }
-                        else if (game.HomeTeamScore < game.AwayTeamScore) {
-                            Losses++;
-                        }
-                        else if (game.HomeTeamScore != null) {
-                            Ties++;
-                        }
+                GoalsScored = 0;
+                GoalsAgainst = 0;
+
+                Func<Game, GameResult> gameResultDeterminator = (game) => {
+                    if (game.HomeTeamScore == null) {
+                        return null;
                     }
-                    else if (game.AwayTeam.Id == this.Id) {
-                        if (game.HomeTeamScore < game.AwayTeamScore) {
+                    if (game.HomeTeam.Id == this.Id) {
+                        return new GameResult(game.HomeTeamScore.Value, game.AwayTeamScore.Value);
+                    }
+                    if (game.AwayTeam.Id == this.Id) {
+                        return new GameResult(game.AwayTeamScore.Value, game.HomeTeamScore.Value);
+                    }
+                    return null;
+                };
+
+                foreach (var game in Games) {
+                    var gameResult = gameResultDeterminator(game);
+
+                    if (gameResult != null) {
+                        if (gameResult.ThisTeamScore > gameResult.OtherTeamScore) {
                             Wins++;
                         }
-                        else if (game.HomeTeamScore > game.AwayTeamScore) {
+                        if (gameResult.ThisTeamScore < gameResult.OtherTeamScore) {
                             Losses++;
                         }
-                        else if (game.HomeTeamScore != null) {
-                            Ties++;
+                        if (gameResult.ThisTeamScore == gameResult.OtherTeamScore) {
+                            Wins++;
                         }
+                        GoalsScored += gameResult.ThisTeamScore;
+                        GoalsAgainst += gameResult.OtherTeamScore;
                     }
                 }
             }

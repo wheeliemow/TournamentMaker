@@ -1,0 +1,29 @@
+﻿@model StandingsViewModel
+
+@{
+    ViewBag.Title = "Standings";
+}
+
+<h2>Standings</h2>
+
+<table>
+    <tr valign="top">
+        <td>
+            <h2>Total Standings</h2>
+            @Html.Partial("Teams", Model.Teams)
+
+            @foreach (var group in Model.Groups) {
+                <h3>@group.Key Standings</h3>
+                @Html.Partial("Teams", group)
+            }
+        </td>
+
+        <td>
+            <h2>Games</h2>
+            @foreach (var round in Model.Rounds) {
+                <h3>@round.Name</h3>
+                @Html.Partial("Games", round.Games)
+            }
+        </td>
+    </tr>
+</table>

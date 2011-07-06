@@ -9,10 +9,22 @@ namespace TournamentReport.Controllers {
         private TournamentContext db = new TournamentContext();
 
         public ActionResult Index() {
-            var standings = db.Teams.ToList().OrderByDescending(t => t.Points);
-            var games = db.Games.Include(g => g.Round).Include(g => g.Teams);
+            var tournaments = db.Tournaments.ToList();
+            return View(tournaments);
+        }
+
+        public ActionResult Standings(string id) {
+            var tournament = db.Tournaments.
+                Include(t => t.Teams).
+                Include(t => t.Rounds).
+                First(t => t.Slug == id);
+            
+            var rounds = db.Rounds.Include(r => r.Games).Where(r => r.TournamentId == tournament.Id);
+            
+            var standings = tournament.Teams.ToList().OrderByDescending(t => t.Points);
+            
             return View(new StandingsViewModel {
-                Games = games,
+                Rounds = tournament.Rounds,
                 Teams = standings
             });
         }

@@ -9,13 +9,19 @@ namespace TournamentReport.Models {
 
         public Team HomeTeam {
             get {
-                return Teams.First();
+                if (Teams == null) {
+                    return null;
+                }
+                return Teams.FirstOrDefault();
             }
         }
 
         public Team AwayTeam {
             get {
-                return Teams.Last();
+                if (Teams == null) {
+                    return null;
+                }
+                return Teams.LastOrDefault();
             }
         }
 

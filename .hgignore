@@ -2,7 +2,6 @@ glob:_ReSharper*
 glob:bin
 glob:Bin
 glob:obj
-glob:App_Data
 glob:*.user
 glob:*.patch
 glob:*.hg

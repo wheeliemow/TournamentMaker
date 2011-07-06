@@ -1,0 +1,49 @@
+﻿@model TournamentReport.Models.Game
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Game</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HomeTeamScore)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.HomeTeamScore)
+            @Html.ValidationMessageFor(model => model.HomeTeamScore)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AwayTeamScore)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AwayTeamScore)
+            @Html.ValidationMessageFor(model => model.AwayTeamScore)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RoundId, "Round")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("RoundId", String.Empty)
+            @Html.ValidationMessageFor(model => model.RoundId)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

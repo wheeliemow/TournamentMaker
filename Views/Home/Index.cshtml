@@ -1,0 +1,241 @@
+﻿@model StandingsViewModel
+@{
+    ViewBag.Title = "Home Page";
+    var groupOne = Model.Teams.Where(t => t.Group == "Group 1");
+    var groupTwo = Model.Teams.Where(t => t.Group == "Group 2");
+    var roundOne = Model.Games.Where(g => g.Round.Id == 1);
+    var roundTwo = Model.Games.Where(g => g.Round.Id == 2);
+    var roundThree = Model.Games.Where(g => g.Round.Id == 3);
+}
+
+<table>
+<tr valign="top">
+    <td>
+<fieldset class="games">
+    <legend>Games</legend>
+
+    <fieldset>
+    <legend>Round One</legend>
+
+<table>
+    <tr>
+        <th>Home Team</th>
+        <th>Score</th>
+        <th>Away Team</th>
+        <th>Score</th>
+        <th>Round</th>
+    </tr>
+
+@foreach (var item in roundOne) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HomeTeam.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HomeTeamScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AwayTeam.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AwayTeamScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Round.Id)
+        </td>
+    </tr>
+}
+</table>
+</fieldset>
+
+<fieldset>
+    <legend>Round Two</legend>
+
+<table>
+    <tr>
+        <th>Home Team</th>
+        <th>Score</th>
+        <th>Away Team</th>
+        <th>Score</th>
+        <th>Round</th>
+    </tr>
+
+@foreach (var item in roundTwo) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HomeTeam.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HomeTeamScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AwayTeam.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AwayTeamScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Round.Id)
+        </td>
+    </tr>
+}
+</table>
+</fieldset>
+
+<fieldset>
+    <legend>Round Three</legend>
+
+<table>
+    <tr>
+        <th>Home Team</th>
+        <th>Score</th>
+        <th>Away Team</th>
+        <th>Score</th>
+        <th>Round</th>
+    </tr>
+
+@foreach (var item in roundThree) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HomeTeam.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HomeTeamScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AwayTeam.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AwayTeamScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Round.Id)
+        </td>
+    </tr>
+}
+</table>
+</fieldset>
+</fieldset>
+</td>
+<td>
+<fieldset class="standings">
+    <legend>Standings</legend>
+
+<fieldset>
+    <legend>Total Standings</legend>
+    <table>
+    
+        <tr>
+            <th>Name</th>
+            <th>Games Played</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th>Ties</th>
+            <th>Points</th>
+        </tr>
+
+    @foreach (var item in Model.Teams) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GamesPlayed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Wins)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Losses)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ties)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Points)
+            </td>
+        </tr>
+    }
+    </table>
+</fieldset>
+
+<fieldset>
+    <legend>Group 1</legend>
+    <table>
+    
+        <tr>
+            <th>Name</th>
+            <th>Games Played</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th>Ties</th>
+            <th>Points</th>
+        </tr>
+    
+    @foreach (var item in groupOne) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GamesPlayed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Wins)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Losses)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ties)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Points)
+            </td>
+        </tr>
+    }
+    </table>
+</fieldset>
+
+<fieldset>
+    <legend>Group 2</legend>
+    <table>
+    
+        <tr>
+            <th>Name</th>
+            <th>Games Played</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th>Ties</th>
+            <th>Points</th>
+        </tr>
+    
+    @foreach (var item in groupTwo) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GamesPlayed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Wins)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Losses)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ties)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Points)
+            </td>
+        </tr>
+    }
+    </table>
+</fieldset>
+
+</fieldset>
+</td>
+</tr>
+</table>

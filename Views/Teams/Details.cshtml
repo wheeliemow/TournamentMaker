@@ -1,0 +1,35 @@
+﻿@model TournamentReport.Models.Team
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Team</legend>
+
+    <div class="display-label">Name</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">Wins</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Wins)
+    </div>
+
+    <div class="display-label">Losses</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Losses)
+    </div>
+
+    <div class="display-label">Ties</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ties)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

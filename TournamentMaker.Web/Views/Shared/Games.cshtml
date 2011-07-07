@@ -15,10 +15,13 @@
     if (game.Teams == null || !game.Teams.Any()) {
         <tr>
             <td colspan="4">
+            <em>TBD</em>
             </td>
+            @if (ViewBag.HasEditAccess) {
             <td>
                 @Html.ActionLink("Specify Teams", "Edit", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug }, null)
             </td>
+            }
         </tr>
     }
     else {

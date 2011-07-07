@@ -10,13 +10,10 @@
 <body>
     <div class="page">
         <header>
-            <div id="title">
-                <h1>Portland Timbers Corporate Cup 2011</h1>
-            </div>
-            <div id="logindisplay">
-                @Html.Partial("_LogOnPartial")
-            </div>
             <nav>
+                <div id="logindisplay">
+                    @Html.Partial("_LogOnPartial")
+                </div>
                 <ul id="menu">
                     <li>@Html.ActionLink("Tournaments", "Index", "Home")</li>
                     <li><a href="/tournaments/2011-timbers-corp-cup-mens">Mens</a></li>
@@ -25,7 +22,7 @@
             </nav>
         </header>
         <section id="main">
-            <div style="width:120px; height: 120px; float: right; margin-right: 10px;"><a href="http://www.mackmarketing.com/timberscorporatecup2011/" title="Corporate Cup Website"><img src="/assets/images/CorpCup_LOGO-120x120.jpg" alt="Timbers Corporate Cup Logo"/></a></div>
+            <div id="main-logo"></div>
             @RenderBody()
         </section>
         <footer>

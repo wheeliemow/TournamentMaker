@@ -111,6 +111,7 @@
   <ItemGroup>
     <Content Include="assets\images\CorpCup_LOGO-120x120.jpg" />
     <Content Include="assets\images\CorpCup_LOGO.jpg" />
+    <Content Include="assets\images\header-976x160.jpg" />
     <Content Include="Global.asax" />
     <Content Include="assets\js\jquery-1.5.1-vsdoc.js" />
     <Content Include="assets\js\jquery-1.5.1.js" />

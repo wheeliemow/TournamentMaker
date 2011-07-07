@@ -125,11 +125,10 @@ footer,
 /* TAB MENU   
 ----------------------------------------------------------*/
 ul#menu {
-    border-bottom: 1px #a35343 solid;
-    padding: 0 0 2px;
+    padding: 0;
     position: relative;
-    margin: 0;
-    text-align: right;
+    margin: 0 0 -1px 5px;
+    text-align: left;
 }
 
 ul#menu li {
@@ -244,13 +243,23 @@ table th {
 
 nav, 
 #menucontainer {
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 div#title {
     display: block;
     float: left;
     text-align: left;
+    
+}
+#main-logo
+{
+    margin-top: -20px;
+    margin-left: 0;
+    padding: 0;
+    width: 976px;
+    height: 160px;
+    background: url(/assets/images/header-976x160.jpg) no-repeat;
 }
 
 #logindisplay {
@@ -259,6 +268,7 @@ div#title {
     text-align: right;
     margin: 10px;
     color: White;
+    float: right;
 }
 
 #logindisplay a:link {

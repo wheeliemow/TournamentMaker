@@ -25,27 +25,11 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Wins)
+            @Html.LabelFor(model => model.Group)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Wins)
-            @Html.ValidationMessageFor(model => model.Wins)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Losses)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Losses)
-            @Html.ValidationMessageFor(model => model.Losses)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Ties)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Ties)
-            @Html.ValidationMessageFor(model => model.Ties)
+            @Html.EditorFor(model => model.Group)
+            @Html.ValidationMessageFor(model => model.Group)
         </div>
 
         <p>
@@ -55,5 +39,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Standings", "Standings", "Home")
 </div>

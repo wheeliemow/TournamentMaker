@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using TournamentReport.Models;
@@ -7,30 +8,9 @@ namespace TournamentReport.Controllers {
     public class TeamsController : Controller {
         private TournamentContext db = new TournamentContext();
 
-        //
-        // GET: /Teams/
-
-        public ViewResult Index() {
-            return View(db.Teams.ToList().OrderByDescending(t => t.Points));
-        }
-
-        //
-        // GET: /Teams/Details/5
-
-        public ViewResult Details(int id) {
-            Team team = db.Teams.Find(id);
-            return View(team);
-        }
-
-        //
-        // GET: /Teams/Create
-
         public ActionResult Create() {
             return View();
         }
-
-        //
-        // POST: /Teams/Create
 
         [HttpPost]
         public ActionResult Create(Team team) {
@@ -43,44 +23,32 @@ namespace TournamentReport.Controllers {
             return View(team);
         }
 
-        //
-        // GET: /Teams/Edit/5
-
-        public ActionResult Edit(int id) {
-            Team team = db.Teams.Find(id);
+        public ActionResult Edit(int id, string tournamentSlug) {
+            var team = db.Teams.Include(t => t.Tournament).FirstOrDefault(t => t.Id == id);
             return View(team);
         }
 
-        //
-        // POST: /Teams/Edit/5
-
         [HttpPost]
-        public ActionResult Edit(Team team) {
+        public ActionResult Edit(Team team, string tournamentSlug) {
             if (ModelState.IsValid) {
                 db.Entry(team).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Standings", "Home", new { id = tournamentSlug });
             }
             return View(team);
         }
 
-        //
-        // GET: /Teams/Delete/5
-
         public ActionResult Delete(int id) {
-            Team team = db.Teams.Find(id);
+            var team = db.Teams.Include(t => t.Tournament).FirstOrDefault(t => t.Id == id);
             return View(team);
         }
 
-        //
-        // POST: /Teams/Delete/5
-
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id) {
-            Team team = db.Teams.Find(id);
+            var team = db.Teams.Include(t => t.Tournament).FirstOrDefault(t => t.Id == id);
             db.Teams.Remove(team);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Standings", "Home", new { id = team.Tournament.Slug });
         }
 
         protected override void Dispose(bool disposing) {

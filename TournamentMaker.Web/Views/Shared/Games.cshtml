@@ -12,6 +12,16 @@
     </tr>
 
 @foreach (var game in Model) {
+    if (game.Teams == null || !game.Teams.Any()) {
+        <tr>
+            <td colspan="4">
+            </td>
+            <td>
+                @Html.ActionLink("Specify Teams", "Edit", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug }, null)
+            </td>
+        </tr>
+    }
+    else {
     <tr>
         <td>
             @Html.DisplayFor(m => game.HomeTeam.Name)
@@ -28,10 +38,11 @@
 
         @if (ViewBag.HasEditAccess) {
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = game.Id })
+            @Html.ActionLink("Report Score", "ReportScores", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug }, null)
         </td>
         }
     </tr>
+    }
 }
 </table>
 

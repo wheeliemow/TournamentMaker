@@ -96,6 +96,7 @@
     <Compile Include="Infrastructure\Filters\ContextFilter.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\GameEditModel.cs" />
     <Compile Include="Models\GameResult.cs" />
     <Compile Include="Models\Round.cs" />
     <Compile Include="Models\StandingsViewModel.cs" />
@@ -108,7 +109,6 @@
     <Compile Include="TournamentContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\TournamentReport.TournamentContext.sdf" />
     <Content Include="Content\images\CorpCup_LOGO-120x120.jpg" />
     <Content Include="Content\images\CorpCup_LOGO.jpg" />
     <Content Include="Global.asax" />
@@ -171,6 +171,7 @@
     <Content Include="Views\Account\LogOn.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Thanks.cshtml" />
+    <Content Include="Views\Games\Edit.cshtml" />
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.dll" />
@@ -181,15 +182,11 @@
     <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
     <None Include="_bin_deployableAssemblies\x86\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Tournaments\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Tournaments\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Tournaments\Create.cshtml" />
@@ -201,12 +198,6 @@
     <Content Include="Views\Tournaments\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Teams\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Teams\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Teams\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -216,13 +207,10 @@
     <Content Include="Views\Teams\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Games\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Games\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Games\Edit.cshtml" />
+    <Content Include="Views\Games\ReportScores.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Games\Delete.cshtml" />

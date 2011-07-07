@@ -8,63 +8,80 @@ namespace TournamentReport.Controllers {
     public class GamesController : Controller {
         private TournamentContext db = new TournamentContext();
 
-        //
-        // GET: /Games/
-
-        public ViewResult Index() {
-            var games = db.Games.Include(g => g.Round).Include(g => g.Teams);
-            return View(games.ToList().OrderBy(g => g.Round.Id));
-        }
-
-
-        //
-        // GET: /Games/Create
-
         public ActionResult Create() {
             ViewBag.RoundId = new SelectList(db.Rounds, "Id", "Id");
             return View();
         }
 
-        //
-        // POST: /Games/Create
-
         [HttpPost]
-        public ActionResult Create(Game game) {
+        public ActionResult Create(Game game, string tournamentSlug) {
             if (ModelState.IsValid) {
                 db.Games.Add(game);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Standings", "Home", new { tournamentSlug });
             }
 
             ViewBag.RoundId = new SelectList(db.Rounds, "Id", "Id", game.RoundId);
             return View(game);
         }
 
-        //
-        // GET: /Games/Edit/5
-
-        public ActionResult Edit(int id) {
+        public ActionResult ReportScores(int id, string tournamentSlug) {
             Game game = db.Games.Include(g => g.Teams).FirstOrDefault(g => g.Id == id);
-            ViewBag.RoundId = new SelectList(db.Rounds, "Id", "Id", game.RoundId);
             return View(game);
         }
 
-        //
-        // POST: /Games/Edit/5
-
         [HttpPost]
-        public ActionResult Edit(Game game) {
+        public ActionResult ReportScores(Game game, string tournamentSlug) {
             if (ModelState.IsValid) {
                 db.Entry(game).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Standings", "Home", new { tournamentSlug });
             }
-            ViewBag.RoundId = new SelectList(db.Rounds, "Id", "Id", game.RoundId);
+
             return View(game);
         }
 
-        //
-        // GET: /Games/Delete/5
+        public ActionResult Edit(int id, string tournamentSlug) {
+            Game game = db.Games.Include(g => g.Teams).FirstOrDefault(g => g.Id == id);
+            var teams = db.Teams.Where(t => t.Tournament.Slug == tournamentSlug);
+            ViewBag.HomeTeamId = new SelectList(teams, "Id", "Name");
+            ViewBag.AwayTeamId = new SelectList(teams, "Id", "Name");
+
+            var model = new GameEditModel {
+                Id = game.Id
+            };
+
+            if (game.HomeTeam != null) {
+                model.HomeTeamId = game.HomeTeam.Id;
+            }
+            if (game.AwayTeam != null) {
+                model.AwayTeamId = game.AwayTeam.Id;
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(GameEditModel game, string tournamentSlug) {
+            if (game.HomeTeamId == game.AwayTeamId) {
+                ModelState.AddModelError("AwayTeamId", "A team cannot play itself");
+            }
+
+            if (ModelState.IsValid) {
+                var dbGame = db.Games.Find(game.Id);
+                db.Teams.Find(game.HomeTeamId).Games.Add(dbGame);
+                db.Teams.Find(game.AwayTeamId).Games.Add(dbGame);
+
+                db.SaveChanges();
+                return RedirectToAction("Standings", "Home", new { tournamentSlug });
+            }
+            var teams = db.Teams.Where(t => t.Tournament.Slug == tournamentSlug);
+            ViewBag.HomeTeamId = new SelectList(teams, "Id", "Name");
+            ViewBag.AwayTeamId = new SelectList(teams, "Id", "Name");
+
+            return View(game);
+        }
+
 
         public ActionResult Delete(int id) {
             Game game = db.Games.Find(id);

@@ -4,7 +4,7 @@ to use a different color start by replacing all instances of
 #5c87b2 with your new color.
 ----------------------------------------------------------*/
 body {
-    background-color: #5c87b2;
+    background-color: #ccbe93;
     font-size: .85em;
     font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
     margin: 0;
@@ -125,7 +125,7 @@ footer,
 /* TAB MENU   
 ----------------------------------------------------------*/
 ul#menu {
-    border-bottom: 1px #5C87B2 solid;
+    border-bottom: 1px #a35343 solid;
     padding: 0 0 2px;
     position: relative;
     margin: 0;
@@ -196,7 +196,7 @@ input[type="password"] {
     padding: 2px;
     font-size: 1.2em;
     color: #444;
-    width: 200px;
+    width: 400px;
 }
 
 select {

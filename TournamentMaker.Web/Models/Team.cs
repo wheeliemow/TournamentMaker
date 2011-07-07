@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System;
+
 namespace TournamentReport.Models {
     public class Team {
         private bool _standingsCalculated = false;
         public int Id { get; set; }
         public virtual ICollection<Game> Games { get; set; }
+        public string Group { get; set; }
+        public Tournament Tournament { get; set; }
+
         public string Name { get; set; }
         public int Wins { get; private set; }
         public int Losses { get; private set; }
@@ -14,11 +18,11 @@ namespace TournamentReport.Models {
         public int GoalsScored { get; private set; }
         public int GoalsAgainst { get; private set; }
 
-        public string Group { get; set; }
-        public Tournament Tournament { get; set; }
-
         public int GamesPlayed {
             get {
+                if (Games == null) {
+                    return 0;
+                }
                 return Games.Count(g => g.HomeTeamScore != null && g.InGame(this));
             }
         }
@@ -30,6 +34,9 @@ namespace TournamentReport.Models {
         }
 
         private void CalculateWinsLosses() {
+            if (Games == null) {
+                return;
+            }
             if (!_standingsCalculated) {
                 Wins = 0;
                 Losses = 0;

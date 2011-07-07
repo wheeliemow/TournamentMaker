@@ -4,7 +4,7 @@
     ViewBag.Title = "Standings";
 }
 
-<h2>Standings</h2>
+<h2>Standings: @Model.Title</h2>
 
 <table>
     <tr valign="top">
@@ -22,6 +22,7 @@
             <h2>Games</h2>
             @foreach (var round in Model.Rounds) {
                 <h3>@round.Name</h3>
+                
                 @Html.Partial("Games", round.Games)
             }
         </td>

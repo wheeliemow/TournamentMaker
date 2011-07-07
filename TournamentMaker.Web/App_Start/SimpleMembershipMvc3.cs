@@ -2,34 +2,31 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.Web.Security;
 using WebMatrix.WebData;
-using TournamentReport.Models;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(TournamentReport.App_Start.SimpleMembershipMvc3), "Start")]
 [assembly: WebActivator.PostApplicationStartMethod(typeof(TournamentReport.App_Start.SimpleMembershipMvc3), "PostApplicationStart")]
 
-namespace TournamentReport.App_Start
-{
-    public static class SimpleMembershipMvc3
-    {
+namespace TournamentReport.App_Start {
+    public static class SimpleMembershipMvc3 {
         public static readonly string EnableSimpleMembershipKey = "enableSimpleMembership";
 
-        public static bool SimpleMembershipEnabled
-        {
+        public static bool SimpleMembershipEnabled {
             get { return IsSimpleMembershipEnabled(); }
         }
 
-        public static void PostApplicationStart()
-        {
+        public static void PostApplicationStart() {
             // Modify the settings below as appropriate for your application
             WebSecurity.InitializeDatabaseConnection(
-                connectionStringName: "TournamentReport.TournamentContext", 
-                userTableName: "Users", 
-                userIdColumn: "Id", 
-                userNameColumn: "Name", 
+                connectionStringName: "TournamentReport.TournamentContext",
+                userTableName: "Users",
+                userIdColumn: "Id",
+                userNameColumn: "Name",
                 autoCreateTables: true);
 
             try {
                 WebSecurity.CreateAccount("Chad", "password");
+                Roles.CreateRole("Administrators");
+                Roles.AddUserToRole("Chad", "Administrators");
             }
             catch (MembershipCreateUserException e) {
                 if (!e.Message.Contains("The username is already in use")) {
@@ -42,13 +39,10 @@ namespace TournamentReport.App_Start
             //webSecurityService.InitializeDatabaseConnection(connectionStringName: "Default", userTableName: "Users", userIdColumn: "ID", userNameColumn: "Username", autoCreateTables: true);
         }
 
-        public static void Start()
-        {
-            if (SimpleMembershipEnabled)
-            {
+        public static void Start() {
+            if (SimpleMembershipEnabled) {
                 MembershipProvider membershipProvider = Membership.Providers["AspNetSqlMembershipProvider"];
-                if (membershipProvider != null)
-                {
+                if (membershipProvider != null) {
                     MembershipProvider currentDefault = membershipProvider;
                     SimpleMembershipProvider provider2 = CreateDefaultSimpleMembershipProvider("AspNetSqlMembershipProvider", currentDefault);
                     Membership.Providers.Remove("AspNetSqlMembershipProvider");
@@ -56,8 +50,7 @@ namespace TournamentReport.App_Start
                 }
                 Roles.Enabled = true;
                 RoleProvider roleProvider = Roles.Providers["AspNetSqlRoleProvider"];
-                if (roleProvider != null)
-                {
+                if (roleProvider != null) {
                     RoleProvider provider6 = roleProvider;
                     SimpleRoleProvider provider4 = CreateDefaultSimpleRoleProvider("AspNetSqlRoleProvider", provider6);
                     Roles.Providers.Remove("AspNetSqlRoleProvider");
@@ -68,19 +61,16 @@ namespace TournamentReport.App_Start
 
         #region : Private Methods :
 
-        private static bool IsSimpleMembershipEnabled()
-        {
+        private static bool IsSimpleMembershipEnabled() {
             bool flag;
             string str = ConfigurationManager.AppSettings[EnableSimpleMembershipKey];
-            if (!string.IsNullOrEmpty(str) && bool.TryParse(str, out flag))
-            {
+            if (!string.IsNullOrEmpty(str) && bool.TryParse(str, out flag)) {
                 return flag;
             }
             return true;
         }
 
-        private static SimpleMembershipProvider CreateDefaultSimpleMembershipProvider(string name, MembershipProvider currentDefault)
-        {
+        private static SimpleMembershipProvider CreateDefaultSimpleMembershipProvider(string name, MembershipProvider currentDefault) {
             MembershipProvider previousProvider = currentDefault;
             SimpleMembershipProvider provider = new SimpleMembershipProvider(previousProvider);
             NameValueCollection config = new NameValueCollection();
@@ -88,8 +78,7 @@ namespace TournamentReport.App_Start
             return provider;
         }
 
-        private static SimpleRoleProvider CreateDefaultSimpleRoleProvider(string name, RoleProvider currentDefault)
-        {
+        private static SimpleRoleProvider CreateDefaultSimpleRoleProvider(string name, RoleProvider currentDefault) {
             RoleProvider previousProvider = currentDefault;
             SimpleRoleProvider provider = new SimpleRoleProvider(previousProvider);
             NameValueCollection config = new NameValueCollection();

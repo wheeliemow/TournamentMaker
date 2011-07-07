@@ -7,7 +7,6 @@
         <th>Wins</th>
         <th>Losses</th>
         <th>Ties</th>
-        <th>Group</th>
         <th>Goals For</th>
         <th>Goals Against</th>
         <th>Points</th>
@@ -16,40 +15,35 @@
         }
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var team in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.DisplayFor(modelteam => team.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.GamesPlayed)
+            @Html.DisplayFor(modelteam => team.GamesPlayed)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Wins)
+            @Html.DisplayFor(modelteam => team.Wins)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Losses)
+            @Html.DisplayFor(modelteam => team.Losses)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Ties)
+            @Html.DisplayFor(modelteam => team.Ties)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Group)
+            @Html.DisplayFor(modelteam => team.GoalsScored)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.GoalsScored)
+            @Html.DisplayFor(modelteam => team.GoalsAgainst)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.GoalsAgainst)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Points)
+            @Html.DisplayFor(modelteam => team.Points)
         </td>
         @if (ViewBag.HasEditAccess) {
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            @Html.ActionLink("Edit", "Edit", "Teams", new { id = team.Id, tournamentSlug = team.Tournament.Slug }, null)
         </td>
         }
     </tr>

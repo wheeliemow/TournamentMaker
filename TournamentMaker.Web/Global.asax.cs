@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using TournamentReport.Infrastructure.Filters;
 
 namespace TournamentReport {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -12,6 +13,7 @@ namespace TournamentReport {
     public class MvcApplication : System.Web.HttpApplication {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters) {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new ContextFilter());
         }
 
         public static void RegisterRoutes(RouteCollection routes) {

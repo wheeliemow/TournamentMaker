@@ -19,5 +19,7 @@ namespace TournamentReport {
         public DbSet<Game> Games { get; set; }
 
         public DbSet<Tournament> Tournaments { get; set; }
+
+        public DbSet<User> Users { get; set; }
     }
 }

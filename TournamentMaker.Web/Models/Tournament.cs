@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
 namespace TournamentReport.Models {
     public class Tournament {
         public int Id { get; set; }
@@ -8,5 +8,7 @@ namespace TournamentReport.Models {
         public string Slug { get; set; }
 
         public virtual ICollection<Team> Teams {get; set;}
+        public User Owner { get; set; }
+        public string fooo { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -7,12 +7,12 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using TournamentReport.Models;
-using TournamentReport.Services;
+using $rootnamespace$.Models;
+using $rootnamespace$.Services;
 
-namespace TournamentReport.Controllers
+namespace $rootnamespace$.Controllers
 {
-	public class AccountController : Controller
+	public class SimpleMembershipAccountController : Controller
 	{
 		public IWebSecurityService WebSecurityService { get; set; }
 

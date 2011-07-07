@@ -1,26 +1,48 @@
+using System.Linq;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using TournamentReport.Models;
+using WebMatrix.WebData;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(TournamentReport.App_Start.EntityFramework_SqlServerCompact), "Start")]
 
 namespace TournamentReport.App_Start {
     public static class EntityFramework_SqlServerCompact {
+        internal const string DefaultUserName = "Chad";
+
         public static void Start() {
             Database.DefaultConnectionFactory = new SqlCeConnectionFactory("System.Data.SqlServerCe.4.0");
-            Database.SetInitializer(new MyDropCreateDatabaseIfModelChanges());
+            var initializer = new MyDropCreateDatabaseIfModelChanges();
+
+            if (!Database.Exists("TournamentReport.TournamentContext")) {
+                using (var context = new TournamentContext()) {
+                    var defaultUser = new User { Name = DefaultUserName };
+                    context.Users.Add(defaultUser);
+                    context.SaveChanges();
+
+                    initializer.SeedData(context);
+                }
+            }
+
+            Database.SetInitializer(initializer);
         }
     }
 
     public class MyDropCreateDatabaseIfModelChanges : DropCreateDatabaseIfModelChanges<TournamentContext> {
+        public void SeedData(TournamentContext context) {
+            Seed(context);
+        }
+        
         protected override void Seed(TournamentContext context) {
-            SetupPortlandsCupMensTournament(context);
-            SetupPortlandsCupCoedTournament(context);
+            var owner = context.Users.FirstOrDefault(u => u.Name == EntityFramework_SqlServerCompact.DefaultUserName);
+
+            SetupPortlandsCupMensTournament(context, owner);
+            SetupPortlandsCupCoedTournament(context, owner);
         }
 
-        private static void SetupPortlandsCupMensTournament(TournamentContext context) {
-            var mensTournament = new Tournament { Name = "2011 Timbers Corporate Cup - Mens", Slug = "2011-timbers-corp-cup-mens" };
+        private static void SetupPortlandsCupMensTournament(TournamentContext context, User owner) {
+            var mensTournament = new Tournament { Name = "2011 Timbers Corporate Cup - Mens", Slug = "2011-timbers-corp-cup-mens", Owner = owner};
             context.Tournaments.Add(mensTournament);
             context.SaveChanges();
 
@@ -59,8 +81,8 @@ namespace TournamentReport.App_Start {
             context.SaveChanges();
         }
 
-        private static void SetupPortlandsCupCoedTournament(TournamentContext context) {
-            var coedTournament = new Tournament { Name = "2011 Timbers Corporate Cup - Coed", Slug = "2011-timbers-corp-cup-coed" };
+        private static void SetupPortlandsCupCoedTournament(TournamentContext context, User owner) {
+            var coedTournament = new Tournament { Name = "2011 Timbers Corporate Cup - Coed", Slug = "2011-timbers-corp-cup-coed", Owner = owner };
             context.Tournaments.Add(coedTournament);
             context.SaveChanges();
 

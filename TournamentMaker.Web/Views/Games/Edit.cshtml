@@ -1,0 +1,40 @@
+﻿@model TournamentReport.Models.GameEditModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Select the teams</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>GameEditModel</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HomeTeamId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("HomeTeamId")
+            @Html.ValidationMessageFor(model => model.HomeTeamId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AwayTeamId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("AwayTeamId")
+            @Html.ValidationMessageFor(model => model.AwayTeamId)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

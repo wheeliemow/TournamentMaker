@@ -187,7 +187,8 @@ legend {
 }
 
 textarea {
-    min-height: 75px;
+    min-height: 100px;
+    min-width: 400px;
 }
 
 input[type="text"], 
@@ -323,3 +324,4 @@ div#title {
     width: 6em;
 }
 
+a img {border: none;}

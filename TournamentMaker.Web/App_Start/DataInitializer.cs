@@ -41,7 +41,12 @@ namespace TournamentReport.App_Start {
         }
 
         private static void SetupPortlandsCupMensTournament(TournamentContext context, User owner) {
-            var mensTournament = new Tournament { Name = "2011 Timbers Corporate Cup - Mens", Slug = "2011-timbers-corp-cup-mens", Owner = owner };
+            var mensTournament = new Tournament { 
+                Name = "2011 Portland Timbers Corporate Cup - Mens",
+                Description = "The Portland Timbers Corporate Cup brings Pacific Northwest corporations together for soccer and corporate networking, all while raising money for Timbers pillar partner, Portland YouthBuilders.",
+                Slug = "2011-timbers-corp-cup-mens", 
+                Owner = owner
+            };
             context.Tournaments.Add(mensTournament);
             context.SaveChanges();
 
@@ -62,13 +67,11 @@ namespace TournamentReport.App_Start {
             var roundOne = new Round { Name = "Mens - Round One (PCC Rock Creek)", Tournament = mensTournament };
             var roundTwo = new Round { Name = "Mens - Round Two (PCC Rock Creek)", Tournament = mensTournament };
             var roundThree = new Round { Name = "Mens - Round Three (PCC Rock Creek)", Tournament = mensTournament };
-            var thirdPlaceRound = new Round { Name = "Third Place Finals", Tournament = mensTournament };
             var championshipRound = new Round { Name = "Championship", Tournament = mensTournament };
 
             context.Rounds.Add(roundOne);
             context.Rounds.Add(roundTwo);
             context.Rounds.Add(roundThree);
-            context.Rounds.Add(thirdPlaceRound);
             context.Rounds.Add(championshipRound);
             context.SaveChanges();
 
@@ -81,13 +84,16 @@ namespace TournamentReport.App_Start {
             context.Games.Add(new Game { Round = roundThree, Teams = new List<Team> { adidas, ups } });
             context.Games.Add(new Game { Round = roundThree, Teams = new List<Team> { cmd, wiedenKenedy } });
             context.Games.Add(new Game { Round = roundThree, Teams = new List<Team> { nike, microsoft } });
-            context.Games.Add(new Game { Round = thirdPlaceRound });
             context.Games.Add(new Game { Round = championshipRound });
             context.SaveChanges();
         }
 
         private static void SetupPortlandsCupCoedTournament(TournamentContext context, User owner) {
-            var coedTournament = new Tournament { Name = "2011 Timbers Corporate Cup - Coed", Slug = "2011-timbers-corp-cup-coed", Owner = owner };
+            var coedTournament = new Tournament {
+                Name = "2011 Portland Timbers Corporate Cup - Co-Ed",
+                Description = "The Portland Timbers Corporate Cup brings Pacific Northwest corporations together for soccer and corporate networking, all while raising money for Timbers pillar partner, Portland YouthBuilders.",
+                Slug = "2011-timbers-corp-cup-coed",
+                Owner = owner };
             context.Tournaments.Add(coedTournament);
             context.SaveChanges();
 

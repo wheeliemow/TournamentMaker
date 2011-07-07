@@ -9,6 +9,7 @@ namespace TournamentReport.Models {
         public string Name { get; set; }
         [Required]
         public string Slug { get; set; }
+        public string Description { get; set; }
 
         public virtual ICollection<Team> Teams { get; set; }
         public User Owner { get; set; }

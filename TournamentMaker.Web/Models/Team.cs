@@ -68,7 +68,7 @@ namespace TournamentReport.Models {
                             Losses++;
                         }
                         if (gameResult.ThisTeamScore == gameResult.OtherTeamScore) {
-                            Wins++;
+                            Ties++;
                         }
                         GoalsScored += gameResult.ThisTeamScore;
                         GoalsAgainst += gameResult.OtherTeamScore;

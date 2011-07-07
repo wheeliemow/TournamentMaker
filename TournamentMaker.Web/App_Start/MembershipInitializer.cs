@@ -3,11 +3,11 @@ using System.Configuration;
 using System.Web.Security;
 using WebMatrix.WebData;
 
-[assembly: WebActivator.PreApplicationStartMethod(typeof(TournamentReport.App_Start.SimpleMembershipMvc3), "Start")]
-[assembly: WebActivator.PostApplicationStartMethod(typeof(TournamentReport.App_Start.SimpleMembershipMvc3), "PostApplicationStart")]
+[assembly: WebActivator.PreApplicationStartMethod(typeof(TournamentReport.App_Start.MembershipInitializer), "Start")]
+[assembly: WebActivator.PostApplicationStartMethod(typeof(TournamentReport.App_Start.MembershipInitializer), "PostApplicationStart")]
 
 namespace TournamentReport.App_Start {
-    public static class SimpleMembershipMvc3 {
+    public static class MembershipInitializer {
         public static readonly string EnableSimpleMembershipKey = "enableSimpleMembership";
 
         public static bool SimpleMembershipEnabled {

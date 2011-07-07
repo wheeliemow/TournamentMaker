@@ -9,6 +9,7 @@
 <table>
     <tr valign="top">
         <th>Tournament</th>
+        <th>Description</th>
         <th></th>
     </tr>
 
@@ -16,6 +17,9 @@
     <tr>
         <td>
             <a href="/tournaments/@tournament.Slug">@Html.DisplayFor(m => tournament.Name)</a>
+        </td>
+        <td>
+            @Html.DisplayFor(m => tournament.Description)
         </td>
         <td>
         @if (ViewBag.CanEditTournament(tournament)) {

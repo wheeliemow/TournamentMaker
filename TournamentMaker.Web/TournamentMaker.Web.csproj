@@ -156,6 +156,7 @@
     <Content Include="_bin_deployableAssemblies\amd64\sqlceme40.dll" />
     <Content Include="_bin_deployableAssemblies\amd64\sqlceqp40.dll" />
     <Content Include="_bin_deployableAssemblies\amd64\sqlcese40.dll" />
+    <Content Include="Views\Games\ResetScores.cshtml" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.xml" />
     <None Include="_bin_deployableAssemblies\NuGet.Core.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.Helpers.xml" />

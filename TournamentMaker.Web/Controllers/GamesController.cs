@@ -103,5 +103,26 @@ namespace TournamentReport.Controllers {
             db.Dispose();
             base.Dispose(disposing);
         }
+
+        [Authorize(Roles="Administrators")]
+        public ActionResult ResetScores(string tournamentSlug) {
+            return View();
+        }
+
+        [Authorize(Roles = "Administrators")]
+        [HttpPost]
+        public ActionResult ResetScores(string tournamentSlug, string submit) {
+            var games = (from team in db.Teams.Include(t => t.Games).Include(t => t.Tournament)
+                         where team.Tournament.Slug == tournamentSlug
+                         select team).SelectMany(t => t.Games).ToList();
+
+            foreach (var game in games) {
+                game.HomeTeamScore = null;
+                game.AwayTeamScore = null;
+            }
+            db.SaveChanges();
+
+            return RedirectToAction("Standings", "Home", new { tournamentSlug });
+        }
     }
 }

@@ -26,8 +26,11 @@ namespace TournamentReport.Models {
         }
 
         [Display(Name = "Home Team Score")]
+        [Range(0, int.MaxValue, ErrorMessage="Not sure how you score negative goals.")]
         public int? HomeTeamScore { get; set; }
+        
         [Display(Name = "Away Team Score")]
+        [Range(0, int.MaxValue, ErrorMessage = "Not sure how you score negative goals.")]
         public int? AwayTeamScore { get; set; }
         public Round Round { get; set; }
         public int RoundId { get; set; }

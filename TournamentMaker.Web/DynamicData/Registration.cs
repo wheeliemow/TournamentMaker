@@ -29,8 +29,11 @@ namespace DynamicDataEFCodeFirst
 
             routes.MapPageRoute(
                 "dd_default",
-                "dbadmin",
-                "~/DynamicData/Default.aspx");
+                "{dbadmin}",
+                "~/DynamicData/Default.aspx", 
+                true,
+                new RouteValueDictionary(),
+                new RouteValueDictionary {{"dbadmin", "dbadmin"}});
         }
     }
 }

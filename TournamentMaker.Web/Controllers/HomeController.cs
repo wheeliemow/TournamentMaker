@@ -22,11 +22,10 @@ namespace TournamentReport.Controllers
                 Include(t => t.Rounds).
                 First(t => t.Slug == tournamentSlug);
 
-            var rounds = db.Rounds.Include(r => r.Games).Where(r => r.TournamentId == tournament.Id);
-
             var standings = tournament.Teams.ToList().OrderByDescending(t => t.Points)
                 .ThenByDescending(t => t.GoalsScored - t.GoalsAgainst)
-                .ThenBy(t => t.GoalsAgainst);
+                .ThenBy(t => t.GoalsAgainst)
+                .ThenBy(t => t.Id);
 
             // Temporary hack
             ViewBag.TournamentSlug = tournament.Slug;
@@ -35,7 +34,7 @@ namespace TournamentReport.Controllers
                         {
                             Title = tournament.Name,
                             Rounds = tournament.Rounds,
-                            Teams = standings
+                            Teams = standings,
                         });
         }
 

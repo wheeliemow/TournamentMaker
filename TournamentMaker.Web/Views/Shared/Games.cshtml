@@ -11,7 +11,7 @@
         }
     </tr>
 
-@foreach (var game in Model) {
+@foreach (var game in Model.OrderBy(t => t.Id)) {
     if (game.Teams == null || !game.Teams.Any()) {
         <tr>
             <td colspan="4">
@@ -20,6 +20,7 @@
             @if (ViewBag.HasEditAccess) {
             <td>
                 @Html.ActionLink("Specify Teams", "Edit", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug }, null)
+                
             </td>
             }
         </tr>
@@ -41,7 +42,8 @@
 
         @if (ViewBag.HasEditAccess) {
         <td>
-            @Html.ActionLink("Report Score", "ReportScores", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug }, null)
+            @Html.ActionLink("Report Score", "ReportScores", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug }, null)<br />
+            @Html.ActionLink("Change Teams", "Edit", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug }, null)
         </td>
         }
     </tr>

@@ -14,7 +14,7 @@
         @Html.HiddenFor(model => model.Id)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.HomeTeamId)
+            @Html.LabelFor(model => model.HomeTeamId, "Home Team")
         </div>
         <div class="editor-field">
             @Html.DropDownList("HomeTeamId")
@@ -22,7 +22,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.AwayTeamId)
+            @Html.LabelFor(model => model.AwayTeamId, "Away Team")
         </div>
         <div class="editor-field">
             @Html.DropDownList("AwayTeamId")
@@ -36,5 +36,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Standings", "Home", new { id = ViewBag.TournamentSlug }, null)
 </div>

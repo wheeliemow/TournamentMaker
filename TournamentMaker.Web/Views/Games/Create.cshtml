@@ -1,33 +1,30 @@
-﻿@model TournamentReport.Models.Game
+﻿@model GameCreateModel
 
 @{
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
-
-
-
+<h2>Create Game</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Game</legend>
-
+        
         <div class="editor-label">
-            @Html.LabelFor(model => model.HomeTeamScore)
+            @Html.LabelFor(model => model.HomeTeamId, "Home Team")
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.HomeTeamScore)
-            @Html.ValidationMessageFor(model => model.HomeTeamScore)
+            @Html.DropDownList("HomeTeamId")
+            @Html.ValidationMessageFor(model => model.HomeTeamId)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.AwayTeamScore)
+            @Html.LabelFor(model => model.AwayTeamId, "Away Team")
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.AwayTeamScore)
-            @Html.ValidationMessageFor(model => model.AwayTeamScore)
+            @Html.DropDownList("AwayTeamId")
+            @Html.ValidationMessageFor(model => model.AwayTeamId)
         </div>
 
         <div class="editor-label">
@@ -45,5 +42,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Standings", "Home", new { id = ViewBag.TournamentSlug }, null)
 </div>

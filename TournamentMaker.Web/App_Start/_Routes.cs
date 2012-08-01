@@ -19,6 +19,11 @@ namespace TournamentReport.App_Start
                 );
 
             routes.MapRoute(
+                "TournamentCreate",
+                "tournaments/{tournamentSlug}/{Controller}/Create",
+                new {action = "Create"});
+
+            routes.MapRoute(
                 "TournamentSpecific", // Route name
                 "tournaments/{tournamentSlug}/{action}/{id}", // URL with parameters
                 new {controller = "Home", action = "Standings", id = UrlParameter.Optional} // Parameter defaults

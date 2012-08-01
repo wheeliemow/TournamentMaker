@@ -1,13 +1,10 @@
-﻿@model TournamentReport.Models.Team
+﻿@model Team
 
 @{
     ViewBag.Title = "Edit";
 }
 
 <h2>Edit</h2>
-
-
-
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
@@ -39,5 +36,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to Standings", "Standings", "Home")
+    @Html.ActionLink("Back to List", "Standings", "Home", new { id = ViewBag.TournamentSlug }, null)
 </div>

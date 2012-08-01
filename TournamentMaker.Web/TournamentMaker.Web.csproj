@@ -106,6 +106,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\SimpleMembershipMvc3.cs" />
     <Compile Include="App_Start\_Constants.cs" />
+    <Compile Include="App_Start\_Routes.cs" />
     <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoundsController.cs" />
@@ -346,9 +347,14 @@
     <Compile Include="Migrations\201208011640472_Initial.Designer.cs">
       <DependentUpon>201208011640472_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201208012234169_HomeAwayTeamId.cs" />
+    <Compile Include="Migrations\201208012234169_HomeAwayTeamId.Designer.cs">
+      <DependentUpon>201208012234169_HomeAwayTeamId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\MigrationsConfiguration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\GameCreateModel.cs" />
     <Compile Include="Models\GameEditModel.cs" />
     <Compile Include="Models\GameResult.cs" />
     <Compile Include="Models\Round.cs" />

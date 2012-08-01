@@ -4,54 +4,69 @@ using System.Linq;
 using System.Web.Mvc;
 using TournamentReport.Models;
 
-namespace TournamentReport.Controllers {
-    public class TeamsController : Controller {
-        private TournamentContext db = new TournamentContext();
+namespace TournamentReport.Controllers
+{
+    public class TeamsController : Controller
+    {
+        private readonly TournamentContext db = new TournamentContext();
 
-        public ActionResult Create() {
+        public ActionResult Create(string group, string tournamentSlug)
+        {
+            ViewBag.Group = group;
+            ViewBag.TournamentSlug = tournamentSlug;
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(Team team) {
-            if (ModelState.IsValid) {
+        public ActionResult Create(Team team, string tournamentSlug)
+        {
+            if (ModelState.IsValid)
+            {
+                var tournament = db.Tournaments.First(t => t.Slug == tournamentSlug);
+                team.Tournament = tournament;
                 db.Teams.Add(team);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Standings", "Home", new {tournamentSlug});
             }
 
             return View(team);
         }
 
-        public ActionResult Edit(int id, string tournamentSlug) {
+        public ActionResult Edit(int id, string tournamentSlug)
+        {
             var team = db.Teams.Include(t => t.Tournament).FirstOrDefault(t => t.Id == id);
             return View(team);
         }
 
         [HttpPost]
-        public ActionResult Edit(Team team, string tournamentSlug) {
-            if (ModelState.IsValid) {
+        public ActionResult Edit(Team team, string tournamentSlug)
+        {
+            if (ModelState.IsValid)
+            {
                 db.Entry(team).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Standings", "Home", new { id = tournamentSlug });
+                return RedirectToAction("Standings", "Home", new {id = tournamentSlug});
             }
             return View(team);
         }
 
-        public ActionResult Delete(int id) {
+        public ActionResult Delete(int id)
+        {
             var team = db.Teams.Include(t => t.Tournament).FirstOrDefault(t => t.Id == id);
             return View(team);
         }
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id) {
+        public ActionResult DeleteConfirmed(int id)
+        {
             var team = db.Teams.Include(t => t.Tournament).FirstOrDefault(t => t.Id == id);
             db.Teams.Remove(team);
             db.SaveChanges();
-            return RedirectToAction("Standings", "Home", new { id = team.Tournament.Slug });
+            return RedirectToAction("Standings", "Home", new {id = team.Tournament.Slug});
         }
 
-        protected override void Dispose(bool disposing) {
+        protected override void Dispose(bool disposing)
+        {
             db.Dispose();
             base.Dispose(disposing);
         }

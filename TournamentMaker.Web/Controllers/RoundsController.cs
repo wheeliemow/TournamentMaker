@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using TournamentReport.Models;
-using TournamentReport;
 
 namespace TournamentReport.Controllers
-{ 
+{
     public class RoundsController : Controller
     {
-        private TournamentContext db = new TournamentContext();
+        private readonly TournamentContext db = new TournamentContext();
 
         //
         // GET: /Rounds/
@@ -35,32 +31,33 @@ namespace TournamentReport.Controllers
         //
         // GET: /Rounds/Create
 
-        public ActionResult Create()
+        public ActionResult Create(string tournamentSlug)
         {
-            ViewBag.TournamentId = new SelectList(db.Tournaments, "Id", "Name");
+            var tournament = db.Tournaments.First(t => t.Slug == tournamentSlug);
+            ViewBag.TournamentId = new SelectList(db.Tournaments, "Id", "Name", tournament.Id);
             return View();
-        } 
+        }
 
         //
         // POST: /Rounds/Create
 
         [HttpPost]
-        public ActionResult Create(Round round)
+        public ActionResult Create(Round round, string tournamentSlug)
         {
             if (ModelState.IsValid)
             {
                 db.Rounds.Add(round);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Standings", "Home", new {tournamentSlug});
             }
 
             ViewBag.TournamentId = new SelectList(db.Tournaments, "Id", "Name", round.TournamentId);
             return View(round);
         }
-        
+
         //
         // GET: /Rounds/Edit/5
- 
+
         public ActionResult Edit(int id)
         {
             Round round = db.Rounds.Find(id);
@@ -72,13 +69,13 @@ namespace TournamentReport.Controllers
         // POST: /Rounds/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Round round)
+        public ActionResult Edit(Round round, string tournamentSlug)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(round).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Standings", "Home", new {tournamentSlug});
             }
             ViewBag.TournamentId = new SelectList(db.Tournaments, "Id", "Name", round.TournamentId);
             return View(round);
@@ -86,7 +83,7 @@ namespace TournamentReport.Controllers
 
         //
         // GET: /Rounds/Delete/5
- 
+
         public ActionResult Delete(int id)
         {
             Round round = db.Rounds.Find(id);
@@ -97,12 +94,12 @@ namespace TournamentReport.Controllers
         // POST: /Rounds/Delete/5
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {            
+        public ActionResult DeleteConfirmed(int id, string tournamentSlug)
+        {
             Round round = db.Rounds.Find(id);
             db.Rounds.Remove(round);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Standings", "Home", new {tournamentSlug});
         }
 
         protected override void Dispose(bool disposing)

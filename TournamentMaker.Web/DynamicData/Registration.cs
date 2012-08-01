@@ -1,7 +1,5 @@
 ﻿using System.Web.DynamicData;
 using System.Web.Routing;
-using DynamicData.EFCodeFirstProvider;
-using TournamentReport;
 
 namespace DynamicDataEFCodeFirst
 {
@@ -16,10 +14,6 @@ namespace DynamicDataEFCodeFirst
 
         public static void Register(RouteCollection routes)
         {
-            DefaultModel.RegisterContext(
-                new EFCodeFirstDataModelProvider(() => new TournamentContext()),
-                new ContextConfiguration {ScaffoldAllTables = true});
-
             // This route must come first to prevent some other route from the site to take over
             routes.Insert(0, new DynamicDataRoute("dbadmin/{table}/{action}")
                              {
@@ -30,7 +24,7 @@ namespace DynamicDataEFCodeFirst
             routes.MapPageRoute(
                 "dd_default",
                 "{dbadmin}",
-                "~/DynamicData/Default.aspx", 
+                "~/DynamicData/Default.aspx",
                 true,
                 new RouteValueDictionary(),
                 new RouteValueDictionary {{"dbadmin", "dbadmin"}});

@@ -2,12 +2,14 @@ using System;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Security.Cryptography;
+using System.Web.Mvc;
 using System.Web.Security;
+using TournamentReport.Services;
+using WebActivator;
 using WebMatrix.WebData;
 
-[assembly: WebActivator.PreApplicationStartMethod(typeof (TournamentReport.App_Start.SimpleMembershipMvc3), "Start")]
-[assembly:
-    WebActivator.PostApplicationStartMethod(typeof (TournamentReport.App_Start.SimpleMembershipMvc3), "Initialize")]
+[assembly: PreApplicationStartMethod(typeof (TournamentReport.App_Start.SimpleMembershipMvc3), "Start")]
+[assembly: PostApplicationStartMethod(typeof (TournamentReport.App_Start.SimpleMembershipMvc3), "Initialize")]
 
 namespace TournamentReport.App_Start
 {
@@ -22,30 +24,27 @@ namespace TournamentReport.App_Start
 
         public static void Initialize()
         {
-            // Modify the settings below as appropriate for your application
-            WebSecurity.InitializeDatabaseConnection(
+            var webSecurityService = DependencyResolver.Current.GetService<IWebSecurityService>();
+            webSecurityService.InitializeDatabaseConnection(
                 connectionStringName: "TournamentReport.TournamentContext",
                 userTableName: "Users",
                 userIdColumn: "ID",
                 userNameColumn: "Name",
                 autoCreateTables: true);
 
-            // Comment the line above and uncomment these lines to use the IWebSecurityService abstraction
-            //var webSecurityService = DependencyResolver.Current.GetService<IWebSecurityService>();
-            //webSecurityService.InitializeDatabaseConnection(connectionStringName: "Default", userTableName: "Users", userIdColumn: "ID", userNameColumn: "Username", autoCreateTables: true);
-            SeedMembershipData();
+            SeedMembershipData(webSecurityService);
         }
 
-        private static void SeedMembershipData()
+        private static void SeedMembershipData(IWebSecurityService webSecurity)
         {
             if (!Roles.RoleExists("Administrators"))
             {
                 Roles.CreateRole("Administrators");
             }
-            if (!WebSecurity.UserExists("Admin"))
+            if (!webSecurity.UserExists("Admin"))
             {
                 // TODO: Make sure password reset functionality works.
-                WebSecurity.CreateUserAndAccount("Admin", GenerateRandomPassword());
+                webSecurity.CreateUserAndAccount("Admin", GenerateRandomPassword());
             }
         }
 

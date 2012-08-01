@@ -37,15 +37,15 @@ namespace TournamentReport.App_Start
 
         private static void SeedMembershipData(IWebSecurityService webSecurity)
         {
-            if (!Roles.RoleExists("Administrators"))
+            if (!Roles.RoleExists(Constants.AdministratorsRoleName))
             {
-                Roles.CreateRole("Administrators");
+                Roles.CreateRole(Constants.AdministratorsRoleName);
             }
             if (!webSecurity.UserExists("Admin"))
             {
                 // TODO: Make sure password reset functionality works.
                 webSecurity.CreateUserAndAccount("Admin", GenerateRandomPassword());
-                Roles.AddUserToRole("Admin", "Administrators");
+                Roles.AddUserToRole("Admin", Constants.AdministratorsRoleName);
             }
         }
 

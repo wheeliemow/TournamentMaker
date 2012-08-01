@@ -1,3 +1,6 @@
+using System;
+using System.Configuration;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using TournamentReport.Models;
@@ -8,12 +11,17 @@ namespace TournamentReport.Controllers
     public class AccountController : Controller
     {
         public IWebSecurityService WebSecurityService { get; set; }
+        public IMessengerService MessengerService { get; set; }
 
         protected override void Initialize(RequestContext requestContext)
         {
             if (WebSecurityService == null)
             {
                 WebSecurityService = new WebSecurityService();
+            }
+            if (MessengerService == null)
+            {
+                MessengerService = new MessengerService();
             }
 
             base.Initialize(requestContext);
@@ -39,15 +47,9 @@ namespace TournamentReport.Controllers
                     {
                         return Redirect(returnUrl);
                     }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
+                    return RedirectToAction("Index", "Home");
                 }
-                else
-                {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
-                }
+                ModelState.AddModelError("", "The user name or password provided is incorrect.");
             }
 
             // If we got this far, something failed, redisplay form
@@ -81,28 +83,69 @@ namespace TournamentReport.Controllers
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
-                var requireEmailConfirmation = false;
+                var requireEmailConfirmation =
+                    Convert.ToBoolean(ConfigurationManager.AppSettings["requireEmailConfirmation"] ?? "false");
                 var token = WebSecurityService.CreateUserAndAccount(model.UserName, model.Password,
-                                                                    requireEmailConfirmation);
+                                                                    requireConfirmationToken: requireEmailConfirmation);
 
                 if (requireEmailConfirmation)
                 {
-                    // TODO: Send email to user with confirmation token
+                    // Send email to user with confirmation token
+                    if (Request.Url != null)
+                    {
+                        string hostUrl = Request.Url.GetComponents(UriComponents.SchemeAndServer, UriFormat.Unescaped);
+                        string confirmationUrl = hostUrl +
+                                                 VirtualPathUtility.ToAbsolute("~/Account/Confirm?confirmationCode=" +
+                                                                               HttpUtility.UrlEncode(token));
+
+                        const string fromAddress = "Your Email Address";
+                        var toAddress = model.Email;
+                        const string subject =
+                            "Thanks for registering but first you need to confirm your registration...";
+                        var body =
+                            string.Format(
+                                "Your confirmation code is: {0}. Visit <a href=\"{1}\">{1}</a> to activate your account.",
+                                token, confirmationUrl);
+
+                        // NOTE: This is just for sample purposes
+                        // It's generally a best practice to not send emails (or do anything on that could take a long time and potentially fail)
+                        // on the same thread as the main site
+                        // You should probably hand this off to a background MessageSender service by queueing the email, etc.
+                        MessengerService.Send(fromAddress, toAddress, subject, body, true);
+                    }
 
                     // Thank the user for registering and let them know an email is on its way
                     return RedirectToAction("Thanks", "Account");
                 }
-                else
-                {
-                    // Navigate back to the homepage and exit
-                    WebSecurityService.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
-                }
+                // Navigate back to the homepage and exit
+                WebSecurityService.Login(model.UserName, model.Password);
+                return RedirectToAction("Index", "Home");
             }
 
             // If we got this far, something failed, redisplay form
             ViewBag.PasswordLength = WebSecurityService.MinPasswordLength;
             return View(model);
+        }
+
+        public ActionResult Confirm()
+        {
+            string confirmationToken = Request.QueryString["confirmationCode"];
+            WebSecurityService.Logout();
+
+            if (!string.IsNullOrEmpty(confirmationToken))
+            {
+                if (WebSecurityService.ConfirmAccount(confirmationToken))
+                {
+                    ViewBag.Message =
+                        "Registration Confirmed! Click on the login link at the top right of the page to continue.";
+                }
+                else
+                {
+                    ViewBag.Message = "Could not confirm your registration info";
+                }
+            }
+
+            return View();
         }
 
         // **************************************
@@ -126,15 +169,86 @@ namespace TournamentReport.Controllers
                 {
                     return RedirectToAction("ChangePasswordSuccess");
                 }
-                else
-                {
-                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
-                }
+                ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
             }
 
             // If we got this far, something failed, redisplay form
             ViewBag.PasswordLength = WebSecurityService.MinPasswordLength;
             return View(model);
+        }
+
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ForgotPassword(ForgotPasswordModel model)
+        {
+            var isValid = false;
+            var resetToken = string.Empty;
+
+            if (ModelState.IsValid)
+            {
+                if (WebSecurityService.GetUserId(model.UserName) > -1 && WebSecurityService.IsConfirmed(model.UserName))
+                {
+                    resetToken = WebSecurityService.GeneratePasswordResetToken(model.UserName);
+                    isValid = true;
+                }
+
+                if (isValid)
+                {
+                    if (Request.Url != null)
+                    {
+                        string hostUrl = Request.Url.GetComponents(UriComponents.SchemeAndServer, UriFormat.Unescaped);
+                        string resetUrl = hostUrl +
+                                          VirtualPathUtility.ToAbsolute("~/Account/PasswordReset?resetToken=" +
+                                                                        HttpUtility.UrlEncode(resetToken));
+
+                        var fromAddress = "Your Email Address";
+                        var toAddress = model.Email;
+                        var subject = "Password reset request";
+                        var body =
+                            string.Format(
+                                "Use this password reset token to reset your password. <br/>The token is: {0}<br/>Visit <a href='{1}'>{1}</a> to reset your password.<br/>",
+                                resetToken, resetUrl);
+
+                        MessengerService.Send(fromAddress, toAddress, subject, body, true);
+                    }
+                }
+                return RedirectToAction("ForgotPasswordMessage");
+            }
+            return View(model);
+        }
+
+        public ActionResult ForgotPasswordMessage()
+        {
+            return View();
+        }
+
+        public ActionResult PasswordReset()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult PasswordReset(PasswordResetModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (WebSecurityService.ResetPassword(model.ResetToken, model.NewPassword))
+                {
+                    return RedirectToAction("PasswordResetSuccess");
+                }
+                ModelState.AddModelError("", "The password reset token is invalid.");
+            }
+
+            return View(model);
+        }
+
+        public ActionResult PasswordResetSuccess()
+        {
+            return View();
         }
 
         // **************************************

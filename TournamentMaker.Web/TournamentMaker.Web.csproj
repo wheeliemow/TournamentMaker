@@ -364,7 +364,6 @@
     <Compile Include="TournamentContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="assets\images\CorpCup_LOGO-120x120.jpg" />
     <Content Include="assets\images\CorpCup_LOGO.jpg" />
     <Content Include="assets\images\header-976x160.jpg" />
@@ -496,7 +495,7 @@
     <Folder Include="Infrastructure\Services\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Tournaments\Create.cshtml" />

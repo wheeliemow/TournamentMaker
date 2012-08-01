@@ -30,6 +30,10 @@ namespace TournamentReport.Controllers
         // **************************************
         // URL: /Account/LogOn
         // **************************************
+        public ActionResult Login()
+        {
+            return RedirectToAction("LogOn");
+        }
 
         public ActionResult LogOn()
         {

@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
-using DynamicDataEFCodeFirst;
+using TournamentReport.App_Start;
 using TournamentReport.Infrastructure.Filters;
 using TournamentReport.Services;
 
@@ -17,48 +17,12 @@ namespace TournamentReport
             filters.Add(new ContextFilter(DependencyResolver.Current.GetService<IWebSecurityService>()));
         }
 
-        public static void RegisterRoutes(RouteCollection routes)
-        {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-            Registration.Register(routes); // Dynamic Data
-
-            routes.MapRoute(
-                "Account", // Route name
-                "Account/{action}", // URL with parameters
-                new {controller = "Account"} // Parameter defaults
-                );
-
-            routes.MapRoute(
-                "TournamentSpecific", // Route name
-                "tournaments/{tournamentSlug}/{action}/{id}", // URL with parameters
-                new {controller = "Home", action = "Standings", id = UrlParameter.Optional} // Parameter defaults
-                );
-
-            routes.MapRoute(
-                "TournamentAction", // Route name
-                "tournaments/{tournamentSlug}/{controller}/{action}/{id}", // URL with parameters
-                new {id = UrlParameter.Optional} // Parameter defaults
-                );
-
-            routes.MapRoute(
-                "Default", // Route name
-                "{controller}/{action}" // URL with parameters
-                );
-
-            routes.MapRoute(
-                "Home", // Route name
-                "", // URL with parameters
-                new {controller = "Home", action = "Index"}
-                );
-        }
-
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
-            RegisterRoutes(RouteTable.Routes);
+            Routes.Register(RouteTable.Routes);
         }
     }
 }

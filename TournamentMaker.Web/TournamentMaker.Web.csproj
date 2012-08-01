@@ -108,6 +108,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="Controllers\TournamentsController.cs" />
+    <Compile Include="Helpers\Ensure.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -32,7 +32,7 @@ local.properties
 ## SQL Server Compact
 #################
 
-App_Data/
+[Aa]pp_[Dd]ata/
 *.sdf
 
 

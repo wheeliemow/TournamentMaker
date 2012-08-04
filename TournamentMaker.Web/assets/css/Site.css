@@ -337,3 +337,7 @@ div#title {
 }
 
 a img {border: none;}
+
+td.actions a img {
+    margin-right: 4px;
+}

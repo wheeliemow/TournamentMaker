@@ -18,10 +18,9 @@
             <em>TBD</em>
             </td>
             @if (ViewBag.HasEditAccess) {
-            <td>
-                @Html.ActionLink("Specify Teams", "Edit", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug }, null)
-                
-            </td>
+                <td class="actions">
+                    <a href="@Url.Action("Edit", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug })"><img src="/assets/images/editIcon.png" width="11" height="11" />Teams</a><br />
+                </td>
             }
         </tr>
     }
@@ -41,10 +40,12 @@
         </td>
 
         @if (ViewBag.HasEditAccess) {
-        <td>
-            @Html.ActionLink("Report Score", "ReportScores", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug }, null)<br />
-            @Html.ActionLink("Change Teams", "Edit", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug }, null)
-        </td>
+            <td class="actions">
+                <a href="@Url.Action("ReportScores", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug })"><img src="/assets/images/greenArrow.png" width="11" height="11" />Score</a><br />
+                <a href="@Url.Action("Edit", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug })"><img src="/assets/images/editIcon.png" width="11" height="11" />Teams</a><br />
+                <a href="@Url.Action("Delete", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug })"><img src="/assets/images/trash.png" width="11" height="11" />Delete</a>
+            
+            </td>
         }
     </tr>
     }

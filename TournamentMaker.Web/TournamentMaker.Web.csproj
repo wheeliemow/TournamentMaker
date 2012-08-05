@@ -374,7 +374,10 @@
     <Content Include="assets\images\2012-header-976x160 - Copy.jpg" />
     <Content Include="assets\images\CorpCup_LOGO-120x120.jpg" />
     <Content Include="assets\images\CorpCup_LOGO.jpg" />
+    <Content Include="assets\images\editIcon.png" />
+    <Content Include="assets\images\greenArrow.png" />
     <Content Include="assets\images\header-976x160.jpg" />
+    <Content Include="assets\images\trash.png" />
     <Content Include="assets\js\jquery-1.7.2-vsdoc.js" />
     <Content Include="assets\js\jquery-1.7.2.js" />
     <Content Include="assets\js\jquery-1.7.2.min.js" />

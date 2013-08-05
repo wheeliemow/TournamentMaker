@@ -12,8 +12,25 @@
         <th>Description</th>
         <th></th>
     </tr>
-
-@foreach (var tournament in Model) {
+@foreach (var tournament in Model.OrderByDescending(t => t.Id).Take(3))
+{
+    <tr>
+        <td>
+            <a href="/tournaments/@tournament.Slug">@Html.DisplayFor(m => tournament.Name)</a>
+        </td>
+        <td>
+            <strong>@Html.DisplayFor(m => tournament.Description)</strong>
+        </td>
+        <td>
+        @if (ViewBag.CanEditTournament(tournament)) {
+            @Html.ActionLink("Edit", "Edit", "Tournaments", new { id = tournament.Id, tournamentSlug = tournament.Slug }, null)
+        }
+        </td>
+    </tr>
+}
+    <tr><td colspan="2" style="padding: 10px;">archive</td></tr>
+@foreach (var tournament in Model.OrderByDescending(t => t.Id).Skip(3))
+{
     <tr>
         <td>
             <a href="/tournaments/@tournament.Slug">@Html.DisplayFor(m => tournament.Name)</a>

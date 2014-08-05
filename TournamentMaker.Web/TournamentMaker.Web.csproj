@@ -19,6 +19,10 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <OldToolsVersion>4.0</OldToolsVersion>
     <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -365,10 +369,10 @@
     <Compile Include="Models\Tournament.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IMessengerService.cs" />
-    <Compile Include="Services\IWebSecurityService.cs" />
-    <Compile Include="Services\MessengerService.cs" />
-    <Compile Include="Services\WebSecurityService.cs" />
+    <Compile Include="Infrastructure\Services\IMessengerService.cs" />
+    <Compile Include="Infrastructure\Services\IWebSecurityService.cs" />
+    <Compile Include="Infrastructure\Services\MessengerService.cs" />
+    <Compile Include="Infrastructure\Services\WebSecurityService.cs" />
     <Compile Include="TournamentContext.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -380,9 +384,6 @@
     <Content Include="assets\images\greenArrow.png" />
     <Content Include="assets\images\header-976x160.jpg" />
     <Content Include="assets\images\trash.png" />
-    <Content Include="assets\js\jquery-1.7.2-vsdoc.js" />
-    <Content Include="assets\js\jquery-1.7.2.js" />
-    <Content Include="assets\js\jquery-1.7.2.min.js" />
     <Content Include="assets\js\modernizr-2.5.3.js" />
     <Content Include="DynamicData\Content\GridViewPager.ascx" />
     <Content Include="DynamicData\Content\Images\Back.gif" />
@@ -424,7 +425,11 @@
     <Content Include="DynamicData\PageTemplates\List.aspx" />
     <Content Include="DynamicData\Site.css" />
     <Content Include="Global.asax" />
-    <Content Include="assets\js\jquery.validate-vsdoc.js" />
+    <None Include="assets\js\jquery-2.1.1.intellisense.js" />
+    <Content Include="assets\js\jquery-2.1.1.js" />
+    <Content Include="assets\js\jquery-2.1.1.min.js" />
+    <Content Include="assets\js\jquery-2.1.1.min.map" />
+    <None Include="assets\js\jquery.validate-vsdoc.js" />
     <Content Include="assets\js\jquery.validate.js" />
     <Content Include="assets\js\jquery.validate.min.js" />
     <Content Include="Web.config">
@@ -505,7 +510,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DynamicData\CustomPages\" />
-    <Folder Include="Infrastructure\Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

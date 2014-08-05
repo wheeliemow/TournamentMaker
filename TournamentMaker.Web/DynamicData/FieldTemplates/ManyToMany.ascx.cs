@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.ComponentModel;
+using System.Data.Entity.Core.Objects.DataClasses;
 using System.Web.UI;
 
-namespace DynamicDataEFCodeFirst
+namespace TournamentReport
 {
     public partial class ManyToManyField : System.Web.DynamicData.FieldTemplateUserControl
     {
@@ -14,7 +15,6 @@ namespace DynamicDataEFCodeFirst
             ICustomTypeDescriptor rowDescriptor = Row as ICustomTypeDescriptor;
             if (rowDescriptor != null)
             {
-                // Get the real entity from the wrapper
                 entity = rowDescriptor.GetPropertyOwner(null);
             }
             else
@@ -22,10 +22,13 @@ namespace DynamicDataEFCodeFirst
                 entity = Row;
             }
 
-            // Get the collection
             var entityCollection = Column.EntityTypeProperty.GetValue(entity, null);
+            var realEntityCollection = entityCollection as RelatedEnd;
+            if (realEntityCollection != null && !realEntityCollection.IsLoaded)
+            {
+                realEntityCollection.Load();
+            }
 
-            // Bind the repeater to the list of children entities
             Repeater1.DataSource = entityCollection;
             Repeater1.DataBind();
         }

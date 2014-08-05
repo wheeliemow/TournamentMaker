@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" CodeBehind="DateTime.ascx.cs" Inherits="DynamicDataEFCodeFirst.DateTimeField" %>
+<%@ Control Language="C#" CodeBehind="DateTime.ascx.cs" Inherits="TournamentReport.DateTimeField" %>
 
 <asp:Literal runat="server" ID="Literal1" Text="<%# FieldValueString %>" />
 

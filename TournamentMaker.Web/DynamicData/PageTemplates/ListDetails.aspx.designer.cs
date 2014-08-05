@@ -10,7 +10,7 @@
 namespace TournamentReport {
     
     
-    public partial class Edit {
+    public partial class ListDetails {
         
         /// <summary>
         /// DynamicDataManager1 control.
@@ -40,13 +40,67 @@ namespace TournamentReport {
         protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
         
         /// <summary>
-        /// DetailsViewValidator control.
+        /// GridViewValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.DynamicData.DynamicValidator DetailsViewValidator;
+        protected global::System.Web.DynamicData.DynamicValidator GridViewValidator;
+        
+        /// <summary>
+        /// FormViewValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.DynamicData.DynamicValidator FormViewValidator;
+        
+        /// <summary>
+        /// FilterRepeater control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.DynamicData.QueryableFilterRepeater FilterRepeater;
+        
+        /// <summary>
+        /// GridView1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridView1;
+        
+        /// <summary>
+        /// GridDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Microsoft.AspNet.EntityDataSource.EntityDataSource GridDataSource;
+        
+        /// <summary>
+        /// GridQueryExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.QueryExtender GridQueryExtender;
+        
+        /// <summary>
+        /// DetailsPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel DetailsPanel;
         
         /// <summary>
         /// FormView1 control.
@@ -65,14 +119,5 @@ namespace TournamentReport {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Microsoft.AspNet.EntityDataSource.EntityDataSource DetailsDataSource;
-        
-        /// <summary>
-        /// DetailsQueryExtender control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.QueryExtender DetailsQueryExtender;
     }
 }

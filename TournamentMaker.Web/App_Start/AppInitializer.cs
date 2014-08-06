@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity.Migrations;
 using System.Web.DynamicData;
-using DynamicData.EFCodeFirstProvider;
 using DynamicDataEFCodeFirst;
+using Microsoft.AspNet.DynamicData.ModelProviders;
 using TournamentReport.App_Start;
 using TournamentReport.Migrations;
 
@@ -26,7 +26,7 @@ namespace TournamentReport.App_Start
         private static void RegisterDynamicData()
         {
             Registration.DefaultModel.RegisterContext(
-                new EFCodeFirstDataModelProvider(() => new TournamentContext()),
+                new EFDataModelProvider(() => new TournamentContext()),
                 new ContextConfiguration {ScaffoldAllTables = true});
         }
     }

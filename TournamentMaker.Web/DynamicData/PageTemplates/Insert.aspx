@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="../Site.master" CodeBehind="Insert.aspx.cs" Inherits="DynamicDataEFCodeFirst.Insert" %>
+<%@ Page Language="C#" MasterPageFile="~/Site.master" CodeBehind="Insert.aspx.cs" Inherits="TournamentReport.Insert" %>
 
 <asp:Content ID="headContent" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -33,7 +33,7 @@
                 </InsertItemTemplate>
             </asp:FormView>
 
-            <asp:EntityDataSource ID="DetailsDataSource" runat="server" EnableInsert="true" />
+            <ef:EntityDataSource ID="DetailsDataSource" runat="server" EnableInsert="true" />
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

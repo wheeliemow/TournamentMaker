@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="../Site.master" CodeBehind="Edit.aspx.cs" Inherits="DynamicDataEFCodeFirst.Edit" %>
+<%@ Page Language="C#" MasterPageFile="~/Site.master" CodeBehind="Edit.aspx.cs" Inherits="TournamentReport.Edit" %>
 
 
 <asp:Content ID="headContent" ContentPlaceHolderID="head" Runat="Server">
@@ -37,7 +37,7 @@
                 </EmptyDataTemplate>
             </asp:FormView>
 
-            <asp:EntityDataSource ID="DetailsDataSource" runat="server" EnableUpdate="true" />
+            <ef:EntityDataSource ID="DetailsDataSource" runat="server" EnableUpdate="true" />
 
             <asp:QueryExtender TargetControlID="DetailsDataSource" ID="DetailsQueryExtender" runat="server">
                 <asp:DynamicRouteExpression />

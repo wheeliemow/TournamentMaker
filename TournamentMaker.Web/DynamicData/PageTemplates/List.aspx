@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="../Site.master" CodeBehind="List.aspx.cs" Inherits="DynamicDataEFCodeFirst.List" %>
+<%@ Page Language="C#" MasterPageFile="~/Site.master" CodeBehind="List.aspx.cs" Inherits="TournamentReport.List" %>
 
 <%@ Register src="~/DynamicData/Content/GridViewPager.ascx" tagname="GridViewPager" tagprefix="asp" %>
 
@@ -20,12 +20,8 @@
                 <asp:ValidationSummary ID="ValidationSummary1" runat="server" EnableClientScript="true"
                     HeaderText="List of validation errors" CssClass="DDValidator" />
                 <asp:DynamicValidator runat="server" ID="GridViewValidator" ControlToValidate="GridView1" Display="None" CssClass="DDValidator" />
-                
-                <asp:Placeholder ID="SearchPanel" runat="server">
-                    <asp:TextBox runat="server" ID="search" /><asp:Button Text="Search" runat="server" /><br />
-                </asp:Placeholder>
-                
-                    <asp:QueryableFilterRepeater runat="server" ID="FilterRepeater">
+
+                <asp:QueryableFilterRepeater runat="server" ID="FilterRepeater">
                     <ItemTemplate>
                         <asp:Label runat="server" Text='<%# Eval("DisplayName") %>' OnPreRender="Label_PreRender" />
                         <asp:DynamicFilter runat="server" ID="DynamicFilter" OnFilterChanged="DynamicFilter_FilterChanged" /><br />
@@ -57,13 +53,10 @@
                 </EmptyDataTemplate>
             </asp:GridView>
 
-            <asp:EntityDataSource ID="GridDataSource" runat="server" EnableDelete="true" />
+            <ef:EntityDataSource ID="GridDataSource" runat="server" EnableDelete="true" />
             
             <asp:QueryExtender TargetControlID="GridDataSource" ID="GridQueryExtender" runat="server">
                 <asp:DynamicFilterExpression ControlID="FilterRepeater" />
-                <asp:SearchExpression SearchType="Contains" >
-                    <asp:ControlParameter ControlID="search" />
-                </asp:SearchExpression>
             </asp:QueryExtender>
 
             <br />

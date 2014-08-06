@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using TournamentReport.App_Start;
 using TournamentReport.Models;
 using TournamentReport.Services;
 
@@ -23,10 +24,11 @@ namespace TournamentReport.Infrastructure.Filters
         {
             if (webSecurity.UserExists(filterContext.HttpContext.User.Identity.Name))
             {
-                filterContext.Controller.ViewBag.HasEditAccess =
-                    filterContext.HttpContext.User.IsInRole("Administrators");
+                bool isAdmin = filterContext.HttpContext.User.IsInRole(Constants.AdministratorsRoleName);
+                filterContext.Controller.ViewBag.HasEditAccess = isAdmin;
                 filterContext.Controller.ViewBag.CanEditTournament =
-                    new Func<Tournament, bool>(t => t.Owner.Name == filterContext.HttpContext.User.Identity.Name);
+                    new Func<Tournament, bool>(t => isAdmin 
+                        || t.Owner.Name == filterContext.HttpContext.User.Identity.Name);
             }
             else
             {

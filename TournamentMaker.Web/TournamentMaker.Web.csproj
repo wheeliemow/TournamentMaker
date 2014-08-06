@@ -415,7 +415,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\images\2011-header-976x160.jpg" />
-    <Content Include="assets\images\2012-header-976x160 - Copy.jpg" />
+    <Content Include="assets\images\2012-header-976x160.jpg" />
+    <Content Include="assets\images\2013-header-976x160.jpg" />
+    <Content Include="assets\images\2014-header-976x160.jpg" />
     <Content Include="assets\images\CorpCup_LOGO-120x120.jpg" />
     <Content Include="assets\images\CorpCup_LOGO.jpg" />
     <Content Include="assets\images\editIcon.png" />
@@ -508,6 +510,7 @@
     <Content Include="Views\Shared\Teams.cshtml" />
     <Content Include="Views\Shared\Games.cshtml" />
     <Content Include="Views\Games\Edit.cshtml" />
+    <None Include="Properties\PublishProfiles\Profile1.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DynamicData\CustomPages\" />

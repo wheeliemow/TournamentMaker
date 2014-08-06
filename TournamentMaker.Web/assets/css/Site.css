@@ -261,7 +261,7 @@ div#title {
     padding: 0;
     width: 976px;
     height: 160px;
-    background: url(/assets/images/header-976x160.jpg) no-repeat;
+    background: url(/assets/images/header-976x160.jpg?v=1) no-repeat;
 }
 
 #logindisplay {

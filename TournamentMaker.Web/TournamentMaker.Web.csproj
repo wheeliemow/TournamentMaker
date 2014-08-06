@@ -45,8 +45,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DynamicData.EFCodeFirstProvider">
-      <HintPath>..\packages\DynamicData.EFCodeFirstProvider.0.4.1.0\lib\net40\DynamicData.EFCodeFirstProvider.dll</HintPath>
+    <Reference Include="DynamicData.EFCodeFirstProvider, Version=0.5.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DynamicData.EFCodeFirstProvider.0.5.1.0\lib\net40\DynamicData.EFCodeFirstProvider.dll</HintPath>
     </Reference>
     <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

@@ -1,6 +1,10 @@
 ﻿@if (Request.IsAuthenticated) {
     <text>Welcome <strong>@User.Identity.Name</strong>!
-    [ @Html.ActionLink("Log Off", "LogOff", "Account") | @Html.ActionLink("Change Password", "ChangePassword", "Account") ]</text>
+    [ @Html.ActionLink("Log Off", "LogOff", "Account") | @Html.ActionLink("Change Password", "ChangePassword", "Account")</text>
+    if (ViewBag.HasEditAccess) {
+        <span>| <a href="/dbadmin">Database Admin</a></span>
+    }
+    <span>]</span>
 }
 else {
     @:[ @Html.ActionLink("Log On", "LogOn", "Account") ]

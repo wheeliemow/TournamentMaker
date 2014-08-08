@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Tournament>
+﻿@model TournamentListModel
 
 @{
     ViewBag.Title = "Tournaments";
@@ -12,7 +12,7 @@
         <th>Description</th>
         <th></th>
     </tr>
-@foreach (var tournament in Model.OrderByDescending(t => t.Id).Take(3))
+@foreach (var tournament in Model.RecentTournaments)
 {
     <tr>
         <td>
@@ -28,8 +28,8 @@
         </td>
     </tr>
 }
-    <tr><td colspan="2" style="padding: 10px;">archive</td></tr>
-@foreach (var tournament in Model.OrderByDescending(t => t.Id).Skip(3))
+    <tr><td colspan="2" style="padding: 10px;">past years</td></tr>
+@foreach (var tournament in Model.ArchivedTournaments)
 {
     <tr>
         <td>

@@ -12,7 +12,7 @@ namespace TournamentReport.Controllers
         public ActionResult Index()
         {
             var tournaments = db.Tournaments.Include(t => t.Owner).ToList();
-            return View(tournaments);
+            return View(new TournamentListModel(tournaments));
         }
 
         public ActionResult Standings(string tournamentSlug)

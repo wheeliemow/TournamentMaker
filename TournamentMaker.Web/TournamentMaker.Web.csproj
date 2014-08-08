@@ -386,6 +386,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ModelHelpers.cs" />
     <Compile Include="Infrastructure\Filters\ContextFilter.cs" />
     <Compile Include="Migrations\201208011640472_Initial.cs" />
     <Compile Include="Migrations\201208011640472_Initial.Designer.cs">
@@ -396,16 +397,17 @@
       <DependentUpon>201208012234169_HomeAwayTeamId.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\MigrationsConfiguration.cs" />
-    <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\Game.cs" />
-    <Compile Include="Models\GameCreateModel.cs" />
-    <Compile Include="Models\GameEditModel.cs" />
-    <Compile Include="Models\GameResult.cs" />
-    <Compile Include="Models\Round.cs" />
-    <Compile Include="Models\StandingsViewModel.cs" />
-    <Compile Include="Models\Team.cs" />
-    <Compile Include="Models\Tournament.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\View\AccountModels.cs" />
+    <Compile Include="Models\Data\Game.cs" />
+    <Compile Include="Models\View\GameCreateModel.cs" />
+    <Compile Include="Models\View\GameEditModel.cs" />
+    <Compile Include="Models\Data\GameResult.cs" />
+    <Compile Include="Models\Data\Round.cs" />
+    <Compile Include="Models\View\StandingsViewModel.cs" />
+    <Compile Include="Models\Data\Team.cs" />
+    <Compile Include="Models\Data\Tournament.cs" />
+    <Compile Include="Models\Data\User.cs" />
+    <Compile Include="Models\View\TournamentListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Infrastructure\Services\IMessengerService.cs" />
     <Compile Include="Infrastructure\Services\IWebSecurityService.cs" />

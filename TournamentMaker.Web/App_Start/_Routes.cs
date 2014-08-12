@@ -19,6 +19,12 @@ namespace TournamentReport.App_Start
                 );
 
             routes.MapRoute(
+                "CreateTournament",
+                "create/{Controller}",
+                new { action = "Create" });
+
+
+            routes.MapRoute(
                 "TournamentCreate",
                 "tournaments/{tournamentSlug}/{Controller}/Create",
                 new {action = "Create"});

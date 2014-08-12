@@ -24,6 +24,21 @@ namespace TournamentReport.Migrations
                     game.AwayTeamId = game.Teams.Last().Id;
                 }
             }
+
+            var gamesWithoutFields = from game in context.Games
+                where game.FieldId == null
+                select game;
+            var defaultField = (from field in context.Fields
+                                where field.Name == "TBD"
+                select field).FirstOrDefault();
+            if (defaultField != null)
+            {
+                foreach (var game in gamesWithoutFields)
+                {
+                    game.FieldId = defaultField.Id;
+                }
+            }
+            context.SaveChanges();
         }
     }
 }

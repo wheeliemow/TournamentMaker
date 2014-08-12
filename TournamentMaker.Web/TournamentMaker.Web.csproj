@@ -157,6 +157,7 @@
     <Compile Include="App_Start\SimpleMembershipMvc3.cs" />
     <Compile Include="App_Start\_Constants.cs" />
     <Compile Include="App_Start\_Routes.cs" />
+    <Compile Include="Controllers\FieldsController.cs" />
     <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoundsController.cs" />
@@ -416,7 +417,12 @@
     <Compile Include="Migrations\201408120610052_GameTime.Designer.cs">
       <DependentUpon>201408120610052_GameTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201408120653127_Fields.cs" />
+    <Compile Include="Migrations\201408120653127_Fields.Designer.cs">
+      <DependentUpon>201408120653127_Fields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Data\Field.cs" />
     <Compile Include="Models\View\AccountModels.cs" />
     <Compile Include="Models\Data\Game.cs" />
     <Compile Include="Models\View\GameCreateModel.cs" />
@@ -489,6 +495,13 @@
     <Content Include="DynamicData\Site.css" />
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\Publish.pubxml" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Views\Fields\Create.cshtml" />
+    <Content Include="Views\Fields\Delete.cshtml" />
+    <Content Include="Views\Fields\Details.cshtml" />
+    <Content Include="Views\Fields\Edit.cshtml" />
+    <Content Include="Views\Fields\Index.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -611,6 +624,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201408120610052_GameTime.resx">
       <DependentUpon>201408120610052_GameTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408120653127_Fields.resx">
+      <DependentUpon>201408120653127_Fields.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

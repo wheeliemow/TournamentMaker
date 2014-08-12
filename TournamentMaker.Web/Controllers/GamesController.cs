@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using TournamentReport.Models;
@@ -8,7 +7,7 @@ namespace TournamentReport.Controllers
 {
     public class GamesController : Controller
     {
-        private readonly TournamentContext db = new TournamentContext();
+        readonly TournamentContext db = new TournamentContext();
 
         public ActionResult Create(string tournamentSlug, int id)
         {
@@ -16,6 +15,9 @@ namespace TournamentReport.Controllers
             var teams = db.Teams.Where(t => t.Tournament.Slug == tournamentSlug);
             ViewBag.HomeTeamId = new SelectList(teams, "Id", "Name");
             ViewBag.AwayTeamId = new SelectList(teams, "Id", "Name");
+
+            var fields = db.Fields.ToList();
+            ViewBag.FieldId = new SelectList(fields, "Id", "Name");
 
             var model = new GameCreateModel
             {
@@ -47,7 +49,8 @@ namespace TournamentReport.Controllers
                     Id = game.Id,
                     HomeTeamId = gameModel.HomeTeamId,
                     AwayTeamId = gameModel.AwayTeamId,
-                    GameTime = gameModel.GameTime
+                    GameTime = gameModel.GameTime,
+                    FieldId = gameModel.FieldId
                 };
                 return Edit(model, tournamentSlug);
             }
@@ -101,6 +104,9 @@ namespace TournamentReport.Controllers
             var teams = db.Teams.Where(t => t.Tournament.Slug == tournamentSlug);
             ViewBag.HomeTeamId = new SelectList(teams, "Id", "Name", model.HomeTeamId);
             ViewBag.AwayTeamId = new SelectList(teams, "Id", "Name", model.AwayTeamId);
+
+            var fields = db.Fields.ToList();
+            ViewBag.FieldId = new SelectList(fields, "Id", "Name", model.FieldId);
 
             return View(model);
         }

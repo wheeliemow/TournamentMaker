@@ -3,6 +3,7 @@
     [ @Html.ActionLink("Log Off", "LogOff", "Account") | @Html.ActionLink("Change Password", "ChangePassword", "Account")</text>
     if (ViewBag.HasEditAccess) {
         <span>| <a href="/dbadmin">Database Admin</a></span>
+        <span>| @Html.RouteLink("Fields", "Default", new { Controller="Fields", Action="Index" })</span>
     }
     <span>]</span>
 }

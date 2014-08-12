@@ -8,7 +8,7 @@ namespace TournamentReport.Controllers
 {
     public class TeamsController : Controller
     {
-        private readonly TournamentContext db = new TournamentContext();
+        readonly TournamentContext db = new TournamentContext();
 
         public ActionResult Create(string group, string tournamentSlug)
         {

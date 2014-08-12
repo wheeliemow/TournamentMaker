@@ -48,5 +48,5 @@
 </table>
 
 @if (ViewBag.HasEditAccess) {
-    <p>@Html.ActionLink("Create New", "Create", "Tournaments")</p>
+    <p>@Html.RouteLink("Create New", "CreateTournament", new { Action = "Create", Controller = "Tournaments" })</p>
 }

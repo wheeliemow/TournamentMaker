@@ -14,5 +14,7 @@ namespace TournamentReport
         public DbSet<Tournament> Tournaments { get; set; }
 
         public DbSet<User> Users { get; set; }
+
+        public System.Data.Entity.DbSet<TournamentReport.Models.Field> Fields { get; set; }
     }
 }

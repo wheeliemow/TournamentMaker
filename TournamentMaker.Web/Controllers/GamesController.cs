@@ -1,4 +1,4 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -18,9 +18,9 @@ namespace TournamentReport.Controllers
             ViewBag.AwayTeamId = new SelectList(teams, "Id", "Name");
 
             var model = new GameCreateModel
-                        {
-                            RoundId = id
-                        };
+            {
+                RoundId = id
+            };
 
             return View(model);
         }
@@ -34,12 +34,21 @@ namespace TournamentReport.Controllers
             }
             if (ModelState.IsValid)
             {
-                var game = new Game {RoundId = gameModel.RoundId.Value};
+                var game = new Game
+                {
+                    RoundId = gameModel.RoundId.Value,
+                    GameTime = gameModel.GameTime
+                };
                 db.Games.Add(game);
                 db.SaveChanges();
 
                 var model = new GameEditModel
-                            {Id = game.Id, HomeTeamId = gameModel.HomeTeamId, AwayTeamId = gameModel.AwayTeamId};
+                {
+                    Id = game.Id,
+                    HomeTeamId = gameModel.HomeTeamId,
+                    AwayTeamId = gameModel.AwayTeamId,
+                    GameTime = gameModel.GameTime
+                };
                 return Edit(model, tournamentSlug);
             }
 
@@ -53,7 +62,7 @@ namespace TournamentReport.Controllers
 
         public ActionResult ReportScores(int id, string tournamentSlug)
         {
-            Game game = db.Games.Include(g => g.Teams).FirstOrDefault(g => g.Id == id);
+            var game = db.Games.Include(g => g.Teams).FirstOrDefault(g => g.Id == id);
             return View(game);
         }
 
@@ -72,12 +81,12 @@ namespace TournamentReport.Controllers
 
         public ActionResult Edit(int id, string tournamentSlug)
         {
-            Game game = db.Games.Include(g => g.Teams).FirstOrDefault(g => g.Id == id);
+            var game = db.Games.Include(g => g.Teams).FirstOrDefault(g => g.Id == id);
 
             var model = new GameEditModel
-                        {
-                            Id = game.Id
-                        };
+            {
+                Id = game.Id
+            };
 
             if (game.HomeTeam != null)
             {
@@ -87,6 +96,7 @@ namespace TournamentReport.Controllers
             {
                 model.AwayTeamId = game.AwayTeam.Id;
             }
+            model.GameTime = game.GameTime;
 
             var teams = db.Teams.Where(t => t.Tournament.Slug == tournamentSlug);
             ViewBag.HomeTeamId = new SelectList(teams, "Id", "Name", model.HomeTeamId);
@@ -107,7 +117,7 @@ namespace TournamentReport.Controllers
             {
                 var dbGame = db.Games.Include(g => g.Teams).FirstOrDefault(g => g.Id == game.Id);
                 dbGame.AddTeams(db.Teams.Find(game.HomeTeamId), db.Teams.Find(game.AwayTeamId));
-
+                dbGame.GameTime = game.GameTime;
                 db.SaveChanges();
                 return RedirectToAction("Standings", "Home", new {tournamentSlug});
             }
@@ -121,7 +131,7 @@ namespace TournamentReport.Controllers
 
         public ActionResult Delete(int id)
         {
-            Game game = db.Games.Find(id);
+            var game = db.Games.Find(id);
             return View(game);
         }
 
@@ -131,7 +141,7 @@ namespace TournamentReport.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id, string tournamentSlug)
         {
-            Game game = db.Games.Find(id);
+            var game = db.Games.Find(id);
             db.Games.Remove(game);
             db.SaveChanges();
             return RedirectToAction("Standings", "Home", new {tournamentSlug});
@@ -154,8 +164,8 @@ namespace TournamentReport.Controllers
         public ActionResult ResetScores(string tournamentSlug, string submit)
         {
             var games = (from team in db.Teams.Include(t => t.Games).Include(t => t.Tournament)
-                         where team.Tournament.Slug == tournamentSlug
-                         select team).SelectMany(t => t.Games).ToList();
+                where team.Tournament.Slug == tournamentSlug
+                select team).SelectMany(t => t.Games).ToList();
 
             foreach (var game in games)
             {

@@ -70,6 +70,8 @@ namespace TournamentReport.Models
 
         public int RoundId { get; set; }
 
+        public DateTime? GameTime { get; set; }
+
         public bool InGame(Team team)
         {
             return team.Id == HomeTeam.Id || team.Id == AwayTeam.Id;

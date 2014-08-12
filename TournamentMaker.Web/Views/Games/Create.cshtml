@@ -35,6 +35,15 @@
             @Html.ValidationMessageFor(model => model.RoundId)
         </div>
 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.GameTime, "Game Time")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.GameTime)
+            @Html.ValidationMessageFor(model => model.GameTime)
+            <em>Ex: 1/23/2014 5:00 PM</em>
+        </div>
+
         <p>
             <input type="submit" value="Create" />
         </p>

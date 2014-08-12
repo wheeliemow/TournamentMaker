@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace TournamentReport.Models
 {
@@ -9,5 +10,7 @@ namespace TournamentReport.Models
 
         [Required]
         public int? RoundId { get; set; }
+
+        public DateTime? GameTime { get; set; }
     }
 }

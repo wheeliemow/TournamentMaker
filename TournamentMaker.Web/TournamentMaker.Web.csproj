@@ -412,6 +412,10 @@
     <Compile Include="Migrations\201408120535566_Initial.Designer.cs">
       <DependentUpon>201408120535566_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201408120610052_GameTime.cs" />
+    <Compile Include="Migrations\201408120610052_GameTime.Designer.cs">
+      <DependentUpon>201408120610052_GameTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\View\AccountModels.cs" />
     <Compile Include="Models\Data\Game.cs" />
@@ -484,6 +488,7 @@
     <Content Include="DynamicData\PageTemplates\ListDetails.aspx" />
     <Content Include="DynamicData\Site.css" />
     <Content Include="Global.asax" />
+    <None Include="Properties\PublishProfiles\Publish.pubxml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -603,6 +608,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201408120535566_Initial.resx">
       <DependentUpon>201408120535566_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408120610052_GameTime.resx">
+      <DependentUpon>201408120610052_GameTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

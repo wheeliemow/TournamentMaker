@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -7,6 +8,7 @@ namespace TournamentReport.Models
     public class Game
     {
         public int Id { get; set; }
+
         public ICollection<Team> Teams { get; set; }
 
         public Team HomeTeam
@@ -52,6 +54,7 @@ namespace TournamentReport.Models
         }
 
         public int? HomeTeamId { get; set; }
+
         public int? AwayTeamId { get; set; }
 
         [Display(Name = "Home Team Score")]
@@ -60,10 +63,14 @@ namespace TournamentReport.Models
 
         [Display(Name = "Away Team Score")]
         [Range(0, int.MaxValue, ErrorMessage = "Not sure how you score negative goals.")]
+
         public int? AwayTeamScore { get; set; }
 
         public Round Round { get; set; }
+
         public int RoundId { get; set; }
+
+        public DateTime? GameTime { get; set; }
 
         public bool InGame(Team team)
         {

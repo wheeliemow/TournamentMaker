@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" CodeBehind="Text_Edit.ascx.cs" Inherits="DynamicDataEFCodeFirst.Text_EditField" %>
+<%@ Control Language="C#" CodeBehind="Text_Edit.ascx.cs" Inherits="TournamentReport.Text_EditField" %>
 
 <asp:TextBox ID="TextBox1" runat="server" Text='<%# FieldValueEditString %>' CssClass="DDTextBox"></asp:TextBox>
 

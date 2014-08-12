@@ -9,7 +9,7 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>GameEditModel</legend>
+        <legend>Edit Game Teams and Time</legend>
 
         @Html.HiddenFor(model => model.Id)
 
@@ -27,6 +27,15 @@
         <div class="editor-field">
             @Html.DropDownList("AwayTeamId")
             @Html.ValidationMessageFor(model => model.AwayTeamId)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.GameTime, "Game Time")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.GameTime)
+            @Html.ValidationMessageFor(model => model.GameTime)
+            <em>Ex: 1/23/2014 5:00 PM</em>
         </div>
 
         <p>

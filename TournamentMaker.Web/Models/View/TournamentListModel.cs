@@ -8,7 +8,9 @@ namespace TournamentReport.Models
         public TournamentListModel(IEnumerable<Tournament> tournaments)
         {
             var sortedTournaments = tournaments.OrderByDescending(t => t.GetYear()).ThenBy(t => t.Id);
-            var maxYear = sortedTournaments.Max(t => t.GetYear());
+            var maxYear = sortedTournaments.Any()
+                ? sortedTournaments.Max(t => t.GetYear())
+                : 2014;
             RecentTournaments = sortedTournaments.Where(t => t.GetYear() == maxYear).ToList();
             ArchivedTournaments = sortedTournaments.Where(t => t.GetYear() < maxYear).ToList();
         }

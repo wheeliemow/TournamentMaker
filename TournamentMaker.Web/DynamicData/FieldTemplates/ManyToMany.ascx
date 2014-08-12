@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" CodeBehind="ManyToMany.ascx.cs" Inherits="DynamicDataEFCodeFirst.ManyToManyField" %>
+<%@ Control Language="C#" CodeBehind="ManyToMany.ascx.cs" Inherits="TournamentReport.ManyToManyField" %>
 
 <asp:Repeater ID="Repeater1" runat="server">
     <ItemTemplate>

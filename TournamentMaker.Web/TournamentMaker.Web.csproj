@@ -408,15 +408,11 @@
     </Compile>
     <Compile Include="Helpers\ModelHelpers.cs" />
     <Compile Include="Infrastructure\Filters\ContextFilter.cs" />
-    <Compile Include="Migrations\201208011640472_Initial.cs" />
-    <Compile Include="Migrations\201208011640472_Initial.Designer.cs">
-      <DependentUpon>201208011640472_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201408120535566_Initial.cs" />
+    <Compile Include="Migrations\201408120535566_Initial.Designer.cs">
+      <DependentUpon>201408120535566_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201208012234169_HomeAwayTeamId.cs" />
-    <Compile Include="Migrations\201208012234169_HomeAwayTeamId.Designer.cs">
-      <DependentUpon>201208012234169_HomeAwayTeamId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\MigrationsConfiguration.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\View\AccountModels.cs" />
     <Compile Include="Models\Data\Game.cs" />
     <Compile Include="Models\View\GameCreateModel.cs" />
@@ -603,6 +599,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Rounds\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201408120535566_Initial.resx">
+      <DependentUpon>201408120535566_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

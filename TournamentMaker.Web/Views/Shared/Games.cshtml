@@ -37,7 +37,7 @@
             @String.Format("{0:t}", game.GameTime)
         </td>
         <td>
-            @Html.DisplayFor(m => game.Field.Name)
+            @Html.RouteLink(game.Field.Name, "Default", new { Controller = "Fields", Action = "Details", Id = game.FieldId })
         </td>
         <td>
             @Html.DisplayFor(m => game.HomeTeam.Name)

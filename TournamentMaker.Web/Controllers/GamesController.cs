@@ -124,6 +124,7 @@ namespace TournamentReport.Controllers
                 var dbGame = db.Games.Include(g => g.Teams).FirstOrDefault(g => g.Id == game.Id);
                 dbGame.AddTeams(db.Teams.Find(game.HomeTeamId), db.Teams.Find(game.AwayTeamId));
                 dbGame.GameTime = game.GameTime;
+                dbGame.FieldId = game.FieldId;
                 db.SaveChanges();
                 return RedirectToAction("Standings", "Home", new {tournamentSlug});
             }

@@ -12,5 +12,8 @@ namespace TournamentReport.Models
         public int? RoundId { get; set; }
 
         public DateTime? GameTime { get; set; }
+
+        [Required]
+        public int? FieldId { get; set; }
     }
 }

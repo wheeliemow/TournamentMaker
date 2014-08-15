@@ -1,4 +1,4 @@
-﻿@model TournamentReport.Models.GameEditModel
+﻿@model GameEditModel
 
 @{
     ViewBag.Title = "Edit";
@@ -28,7 +28,16 @@
             @Html.DropDownList("AwayTeamId")
             @Html.ValidationMessageFor(model => model.AwayTeamId)
         </div>
-        
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FieldId, "Field")
+        </div>
+
+        <div class="editor-field">
+            @Html.DropDownList("FieldId") <em>@Html.RouteLink("Add New Field", "Default", new { Controller = "Fields", Action="Create" })</em>
+            @Html.ValidationMessageFor(model => model.FieldId)
+        </div>
+
         <div class="editor-label">
             @Html.LabelFor(model => model.GameTime, "Game Time")
         </div>

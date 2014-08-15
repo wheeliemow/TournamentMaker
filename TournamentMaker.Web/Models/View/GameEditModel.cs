@@ -8,5 +8,6 @@ namespace TournamentReport.Models
         public int? HomeTeamId { get; set; }
         public int? AwayTeamId { get; set; }
         public DateTime? GameTime { get; set; }
+        public int? FieldId { get; set; }
     }
 }

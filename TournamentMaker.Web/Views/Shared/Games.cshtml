@@ -3,12 +3,13 @@
            
 <table>
     <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Field</th>
         <th>Home Team</th>
         <th>Score</th>
         <th>Away Team</th>
         <th>Score</th>
-        <th>Date</th>
-        <th>Time</th>
         @if (ViewBag.HasEditAccess) {
         <th></th>
         }
@@ -30,6 +31,15 @@
     else {
     <tr>
         <td>
+            @String.Format("{0:D}", game.GameTime)
+        </td>
+        <td>
+            @String.Format("{0:t}", game.GameTime)
+        </td>
+        <td>
+            @Html.RouteLink(game.Field.Name, "Default", new { Controller = "Fields", Action = "Details", Id = game.FieldId })
+        </td>
+        <td>
             @Html.DisplayFor(m => game.HomeTeam.Name)
         </td>
         <td>
@@ -41,16 +51,10 @@
         <td>
             @Html.DisplayFor(m => game.AwayTeamScore)
         </td>
-        <td>
-            @String.Format("{0:D}", game.GameTime)
-        </td>
-        <td>
-            @String.Format("{0:t}", game.GameTime)
-        </td>
         @if (ViewBag.HasEditAccess) {
             <td class="actions">
                 <a href="@Url.Action("ReportScores", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug })"><img src="/assets/images/greenArrow.png" width="11" height="11" />Score</a><br />
-                <a href="@Url.Action("Edit", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug })"><img src="/assets/images/editIcon.png" width="11" height="11" />Teams and Time</a><br />
+                <a href="@Url.Action("Edit", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug })"><img src="/assets/images/editIcon.png" width="11" height="11" />Edit</a><br />
                 <a href="@Url.Action("Delete", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug })"><img src="/assets/images/trash.png" width="11" height="11" />Delete</a>
             
             </td>

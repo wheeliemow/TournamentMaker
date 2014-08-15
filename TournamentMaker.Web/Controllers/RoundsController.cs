@@ -8,7 +8,7 @@ namespace TournamentReport.Controllers
 {
     public class RoundsController : Controller
     {
-        private readonly TournamentContext db = new TournamentContext();
+        readonly TournamentContext db = new TournamentContext();
 
         //
         // GET: /Rounds/

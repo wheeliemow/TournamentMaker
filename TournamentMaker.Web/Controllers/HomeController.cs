@@ -7,7 +7,7 @@ namespace TournamentReport.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly TournamentContext db = new TournamentContext();
+        readonly TournamentContext db = new TournamentContext();
 
         public ActionResult Index()
         {
@@ -17,10 +17,11 @@ namespace TournamentReport.Controllers
 
         public ActionResult Standings(string tournamentSlug)
         {
-            var tournament = db.Tournaments.
-                Include(t => t.Teams).
-                Include(t => t.Rounds).
-                First(t => t.Slug == tournamentSlug);
+            var tournament = db.Tournaments
+                .Include(t => t.Teams)
+                .Include(t => t.Rounds.Select(r => r.Games.Select(g => g.Field)))
+                .Include(t => t.Rounds)
+                .First(t => t.Slug == tournamentSlug);
 
             var standings = tournament.Teams.ToList().OrderByDescending(t => t.Points)
                 .ThenByDescending(t => t.GoalsScored - t.GoalsAgainst)
@@ -31,11 +32,11 @@ namespace TournamentReport.Controllers
             ViewBag.TournamentSlug = tournament.Slug;
 
             return View(new StandingsViewModel
-                        {
-                            Title = tournament.Name,
-                            Rounds = tournament.Rounds,
-                            Teams = standings,
-                        });
+            {
+                Title = tournament.Name,
+                Rounds = tournament.Rounds,
+                Teams = standings,
+            });
         }
 
         protected override void Dispose(bool disposing)

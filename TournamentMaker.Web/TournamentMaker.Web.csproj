@@ -34,6 +34,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\TournamentMaker.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -423,6 +425,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Data\Field.cs" />
+    <Compile Include="Models\Data\ReportScoreModel.cs" />
     <Compile Include="Models\View\AccountModels.cs" />
     <Compile Include="Models\Data\Game.cs" />
     <Compile Include="Models\View\GameCreateModel.cs" />

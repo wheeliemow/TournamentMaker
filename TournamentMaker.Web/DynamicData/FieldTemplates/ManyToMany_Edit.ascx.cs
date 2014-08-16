@@ -78,7 +78,7 @@ namespace TournamentReport
             if (Mode == DataBoundControlMode.Edit)
             {
                 object entity;
-                ICustomTypeDescriptor rowDescriptor = Row as ICustomTypeDescriptor;
+                var rowDescriptor = Row as ICustomTypeDescriptor;
                 if (rowDescriptor != null)
                 {
                     entity = rowDescriptor.GetPropertyOwner(null);
@@ -98,7 +98,7 @@ namespace TournamentReport
 
             foreach (object childEntity in childTable.GetQuery(ObjectContext))
             {
-                ListItem listItem = new ListItem(
+                var listItem = new ListItem(
                     childTable.GetDisplayString(childEntity),
                     childTable.GetPrimaryKeyString(childEntity));
 

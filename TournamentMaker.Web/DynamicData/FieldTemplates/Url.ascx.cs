@@ -6,25 +6,29 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace TournamentReport {
-    public partial class UrlField : System.Web.DynamicData.FieldTemplateUserControl {
-        protected override void OnDataBinding(EventArgs e) {
+namespace TournamentReport
+{
+    public partial class UrlField : System.Web.DynamicData.FieldTemplateUserControl
+    {
+        protected override void OnDataBinding(EventArgs e)
+        {
             HyperLinkUrl.NavigateUrl = ProcessUrl(FieldValueString);
         }
-    
-        private string ProcessUrl(string url) {
-            if (url.StartsWith("http://", StringComparison.OrdinalIgnoreCase) || url.StartsWith("https://", StringComparison.OrdinalIgnoreCase)) {
-                return url;    
+
+        private string ProcessUrl(string url)
+        {
+            if (url.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ||
+                url.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+            {
+                return url;
             }
-    
+
             return "http://" + url;
         }
-    
-        public override Control DataControl {
-            get {
-                return HyperLinkUrl;
-            }
+
+        public override Control DataControl
+        {
+            get { return HyperLinkUrl; }
         }
-    
     }
 }

@@ -60,6 +60,10 @@ namespace TournamentReport.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             var team = db.Teams.Include(t => t.Tournament).FirstOrDefault(t => t.Id == id);
+            if (team == null)
+            {
+                return HttpNotFound();
+            }
             db.Teams.Remove(team);
             db.SaveChanges();
             return RedirectToAction("Standings", "Home", new {id = team.Tournament.Slug});

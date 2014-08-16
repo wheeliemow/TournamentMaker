@@ -11,12 +11,13 @@ namespace DynamicDataEFCodeFirst
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Control c = Parent;
+            var c = Parent;
             while (c != null)
             {
-                if (c is GridView)
+                var view = c as GridView;
+                if (view != null)
                 {
-                    _gridView = (GridView)c;
+                    _gridView = view;
                     break;
                 }
                 c = c.Parent;

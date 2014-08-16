@@ -38,7 +38,7 @@ namespace TournamentReport.Controllers
             {
                 var game = new Game
                 {
-                    RoundId = gameModel.RoundId.Value,
+                    RoundId = gameModel.RoundId.GetValueOrDefault(),
                     GameTime = gameModel.GameTime
                 };
                 db.Games.Add(game);
@@ -70,13 +70,20 @@ namespace TournamentReport.Controllers
         }
 
         [HttpPost]
-        public ActionResult ReportScores(Game game, string tournamentSlug)
+        public ActionResult ReportScores(ReportScoreModel game, string tournamentSlug)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(game).State = EntityState.Modified;
+                var dbGame = db.Games.Include(g => g.Teams).FirstOrDefault(g => g.Id == game.Id);
+                if (dbGame == null)
+                {
+                    return HttpNotFound();
+                }
+                dbGame.HomeTeamScore = game.HomeTeamScore;
+                dbGame.AwayTeamScore = game.AwayTeamScore;
                 db.SaveChanges();
-                return RedirectToAction("Standings", "Home", new {tournamentSlug});
+
+                return RedirectToAction("Standings", "Home", new { tournamentSlug });
             }
 
             return View(game);
@@ -85,7 +92,10 @@ namespace TournamentReport.Controllers
         public ActionResult Edit(int id, string tournamentSlug)
         {
             var game = db.Games.Include(g => g.Teams).FirstOrDefault(g => g.Id == id);
-
+            if (game == null)
+            {
+                return HttpNotFound();
+            }
             var model = new GameEditModel
             {
                 Id = game.Id
@@ -99,6 +109,7 @@ namespace TournamentReport.Controllers
             {
                 model.AwayTeamId = game.AwayTeam.Id;
             }
+            model.FieldId = game.FieldId;
             model.GameTime = game.GameTime;
 
             var teams = db.Teams.Where(t => t.Tournament.Slug == tournamentSlug);
@@ -122,6 +133,10 @@ namespace TournamentReport.Controllers
             if (ModelState.IsValid)
             {
                 var dbGame = db.Games.Include(g => g.Teams).FirstOrDefault(g => g.Id == game.Id);
+                if (dbGame == null)
+                {
+                    return HttpNotFound();
+                }
                 dbGame.AddTeams(db.Teams.Find(game.HomeTeamId), db.Teams.Find(game.AwayTeamId));
                 dbGame.GameTime = game.GameTime;
                 dbGame.FieldId = game.FieldId;

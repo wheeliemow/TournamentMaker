@@ -13,9 +13,11 @@ namespace TournamentReport.Services
 			
 			try
 			{
-				var msg = new MailMessage(from, to, subject, body);
-				msg.IsBodyHtml = isBodyHtml;
-				var smtp = new SmtpClient();
+				var msg = new MailMessage(from, to, subject, body)
+				{
+				    IsBodyHtml = isBodyHtml
+				};
+			    var smtp = new SmtpClient();
 				smtp.Send(msg);
 				isSuccess = true;
 			}

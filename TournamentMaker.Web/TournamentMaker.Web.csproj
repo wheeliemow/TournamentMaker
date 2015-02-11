@@ -451,6 +451,7 @@
     <Content Include="assets\images\editIcon.png" />
     <Content Include="assets\images\greenArrow.png" />
     <Content Include="assets\images\header-976x160.jpg" />
+    <Content Include="assets\images\newtek-logo.png" />
     <Content Include="assets\images\trash.png" />
     <Content Include="DynamicData\Content\GridViewPager.ascx" />
     <Content Include="DynamicData\Content\Images\Back.gif" />

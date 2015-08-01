@@ -85,6 +85,7 @@ namespace TournamentReport.Controllers
         public ActionResult Edit(int id, string tournamentSlug)
         {
             var game = db.Games.Include(g => g.Teams).FirstOrDefault(g => g.Id == id);
+            if (game == null) return HttpNotFound();
 
             var model = new GameEditModel
             {
@@ -122,6 +123,8 @@ namespace TournamentReport.Controllers
             if (ModelState.IsValid)
             {
                 var dbGame = db.Games.Include(g => g.Teams).FirstOrDefault(g => g.Id == game.Id);
+                if (dbGame == null) return HttpNotFound();
+
                 dbGame.AddTeams(db.Teams.Find(game.HomeTeamId), db.Teams.Find(game.AwayTeamId));
                 dbGame.GameTime = game.GameTime;
                 dbGame.FieldId = game.FieldId;

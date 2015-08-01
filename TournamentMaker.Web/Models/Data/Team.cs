@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace TournamentReport.Models {
     public class Team {
-        private bool _standingsCalculated = false;
+        private bool _standingsCalculated;
         public int Id { get; set; }
         public virtual ICollection<Game> Games { get; set; }
         public string Group { get; set; }
@@ -44,15 +44,17 @@ namespace TournamentReport.Models {
                 GoalsScored = 0;
                 GoalsAgainst = 0;
 
-                Func<Game, GameResult> gameResultDeterminator = (game) => {
+                Func<Game, GameResult> gameResultDeterminator = game => {
                     if (game.HomeTeamScore == null) {
                         return null;
                     }
-                    if (game.HomeTeam.Id == this.Id) {
-                        return new GameResult(game.HomeTeamScore.Value, game.AwayTeamScore.Value);
+                    if (game.HomeTeam != null && game.HomeTeam.Id == Id)
+                    {
+                        return new GameResult(game.HomeTeamScore.Value, game.AwayTeamScore.GetValueOrDefault());
                     }
-                    if (game.AwayTeam.Id == this.Id) {
-                        return new GameResult(game.AwayTeamScore.Value, game.HomeTeamScore.Value);
+                    if (game.AwayTeam != null && game.AwayTeam.Id == Id)
+                    {
+                        return new GameResult(game.AwayTeamScore.GetValueOrDefault(), game.HomeTeamScore.Value);
                     }
                     return null;
                 };

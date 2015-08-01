@@ -53,10 +53,9 @@
         </td>
         @if (ViewBag.HasEditAccess) {
             <td class="actions">
-                <a href="@Url.Action("ReportScores", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug })"><img src="/assets/images/greenArrow.png" width="11" height="11" />Score</a><br />
-                <a href="@Url.Action("Edit", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug })"><img src="/assets/images/editIcon.png" width="11" height="11" />Edit</a><br />
-                <a href="@Url.Action("Delete", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug })"><img src="/assets/images/trash.png" width="11" height="11" />Delete</a>
-            
+                <nobr><a href="@Url.Action("ReportScores", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug })"><img src="/assets/images/greenArrow.png" width="11" height="11" />Score</a></nobr><br />
+                <nobr><a href="@Url.Action("Edit", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug })"><img src="/assets/images/editIcon.png" width="11" height="11" />Edit</a></nobr><br />
+                <nobr><a href="@Url.Action("Delete", "Games", new { id = game.Id, tournamentSlug = ViewBag.TournamentSlug })"><img src="/assets/images/trash.png" width="11" height="11" />Delete</a></nobr>
             </td>
         }
     </tr>

@@ -43,7 +43,10 @@
         </td>
         @if (ViewBag.HasEditAccess) {
             <td class="actions">
-                <a href="@Url.Action("Edit", "Teams", new { id = team.Id, tournamentSlug = team.Tournament.Slug})"><img src="/assets/images/editIcon.png" width="11" height="11" />Edit</a><br />
+                <nobr>
+                    <a href="@Url.Action("Edit", "Teams", new {id = team.Id, tournamentSlug = team.Tournament.Slug})"><img src="/assets/images/editIcon.png" width="11" height="11" />Edit</a> 
+                    <a href="@Url.Action("Delete", "Teams", new { id = team.Id, tournamentSlug = team.Tournament.Slug})"><img src="/assets/images/trash.png" width="11" height="11" />Delete</a>
+                </nobr>
             </td>
         }
     </tr>

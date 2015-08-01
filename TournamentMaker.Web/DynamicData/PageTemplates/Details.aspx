@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/Site.master" CodeBehind="Details.aspx.cs" Inherits="TournamentReport.Details" %>
+<%@ Page Language="C#" MasterPageFile="~/DynamicData/Site.master" CodeBehind="Details.aspx.cs" Inherits="TournamentReport.Details" %>
 
 
 <asp:Content ID="headContent" ContentPlaceHolderID="head" Runat="Server">

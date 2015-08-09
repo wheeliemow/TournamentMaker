@@ -1,5 +1,4 @@
-﻿using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using TournamentReport.Models;
@@ -59,9 +58,9 @@ namespace TournamentReport.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            string tournamentSlug = team.Tournament.Slug;
             var team = db.Teams.Include(t => t.Tournament).FirstOrDefault(t => t.Id == id);
             if (team == null) return HttpNotFound();
+            string tournamentSlug = team.Tournament.Slug;
             db.Teams.Remove(team);
             db.SaveChanges();
             return RedirectToAction("Standings", "Home", new { id = tournamentSlug });

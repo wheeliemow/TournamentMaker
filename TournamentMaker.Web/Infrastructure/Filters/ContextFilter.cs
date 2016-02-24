@@ -12,7 +12,7 @@ namespace TournamentReport.Infrastructure.Filters
 
         public ContextFilter(IWebSecurityService webSecurity)
         {
-            Ensure.ArgumentNotNull(webSecurity, "webSecurity");
+          //  Ensure.ArgumentNotNull(webSecurity, "webSecurity");
             this.webSecurity = webSecurity;
         }
 
